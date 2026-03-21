@@ -48,13 +48,13 @@ export function ExperienceCard({
         <>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="mt-2 flex items-center gap-1 text-[11px] transition-colors hover:underline"
+            className="motion-colors mt-2 flex items-center gap-1 text-[11px] hover:underline"
             style={{ color: "var(--text-muted)" }}
             aria-expanded={expanded}
             aria-label="Expand details"
           >
             <span
-              className="transition-transform"
+              className="motion-lift"
               style={{
                 transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
               }}
@@ -65,12 +65,15 @@ export function ExperienceCard({
           </button>
 
           <div
-            className="grid transition-all"
+            className="grid"
             style={{
               gridTemplateRows: expanded ? "1fr" : "0fr",
               opacity: expanded ? 1 : 0,
               marginTop: expanded ? 16 : 0,
-              transitionDuration: "var(--motion-duration-slow)",
+              transitionProperty: "grid-template-rows, opacity, margin-top",
+              transitionDuration: expanded
+                ? "var(--motion-duration-expand-open)"
+                : "var(--motion-duration-expand-close)",
               transitionTimingFunction: "var(--motion-ease-standard)",
             }}
           >

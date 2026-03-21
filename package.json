@@ -6,7 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "parity:motion:capture:source:light": "node scripts/parity/motion-capture.mjs --kind=source --label=source --theme=light --baseUrl=https://ramx.in",
+    "parity:motion:capture:source:dark": "node scripts/parity/motion-capture.mjs --kind=source --label=source --theme=dark --baseUrl=https://ramx.in",
+    "parity:motion:capture:local:light": "node scripts/parity/motion-capture.mjs --label=local --theme=light --baseUrl=${LOCAL_URL:-http://127.0.0.1:3000}",
+    "parity:motion:capture:local:dark": "node scripts/parity/motion-capture.mjs --label=local --theme=dark --baseUrl=${LOCAL_URL:-http://127.0.0.1:3000}",
+    "parity:motion:compare:light": "node scripts/parity/motion-compare.mjs --source=artifacts/motion/source-light.json --local=artifacts/motion/local-light.json",
+    "parity:motion:compare:dark": "node scripts/parity/motion-compare.mjs --source=artifacts/motion/source-dark.json --local=artifacts/motion/local-dark.json",
+    "parity:motion:compare:spec:light": "node scripts/parity/motion-compare-spec.mjs artifacts/motion/local-light.json",
+    "parity:motion:compare:spec:dark": "node scripts/parity/motion-compare-spec.mjs artifacts/motion/local-dark.json",
+    "parity:motion": "npm run parity:motion:capture:local:light && npm run parity:motion:compare:spec:light && npm run parity:motion:capture:local:dark && npm run parity:motion:compare:spec:dark"
   },
   "dependencies": {
     "lucide-react": "^0.577.0",
@@ -22,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
+    "playwright": "^1.58.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

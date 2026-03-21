@@ -27,7 +27,7 @@ export default async function BlogPostPage({ params }: Props) {
       <div>
         <Link
           href="/blog"
-          className="text-sm transition-colors hover:underline"
+          className="motion-colors text-sm hover:underline"
           style={{ color: "var(--text-muted)" }}
         >
           ← Back to blog

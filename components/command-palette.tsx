@@ -169,7 +169,7 @@ export function CommandPalette() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1 rounded-[11px] border px-2 py-1 text-[11px] transition-colors hover:bg-[var(--bg-hover)] hover:-translate-y-px"
+        className="motion-lift-colors flex items-center gap-1 rounded-[11px] border px-2 py-1 text-[11px] hover:bg-[var(--bg-hover)] hover:-translate-y-px"
         style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
         aria-label="Open command palette (⌘K)"
       >
@@ -182,7 +182,7 @@ export function CommandPalette() {
         <div
           className="fixed inset-0 z-[120] bg-black/30 px-4 pt-20"
           style={{
-            animation: "fade-overlay var(--motion-duration-base) var(--motion-ease-standard)",
+            animation: "fade-overlay var(--motion-duration-overlay-in) var(--motion-ease-enter)",
           }}
           onClick={closePalette}
         >
@@ -191,7 +191,7 @@ export function CommandPalette() {
             style={{
               borderColor: "var(--border)",
               animation:
-                "palette-enter var(--motion-duration-panel) var(--motion-ease-emphasized)",
+                "palette-enter var(--motion-duration-panel-in) var(--motion-ease-enter)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -213,7 +213,7 @@ export function CommandPalette() {
                   key={item.id}
                   onMouseEnter={() => setSelected(idx)}
                   onClick={() => item.run()}
-                  className="flex w-full items-start justify-between rounded-lg px-3 py-2 text-left transition-colors"
+                  className="motion-colors flex w-full items-start justify-between rounded-lg px-3 py-2 text-left"
                   style={{
                     backgroundColor: idx === selected ? "var(--bg-hover)" : "transparent",
                   }}

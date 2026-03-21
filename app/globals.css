@@ -31,12 +31,24 @@
   --border: #dfdfdf;
   --border-hover: #d4d4d4;
   --accent: #22c55e;
-  --motion-duration-fast: 120ms;
-  --motion-duration-base: 180ms;
-  --motion-duration-slow: 260ms;
-  --motion-duration-panel: 320ms;
-  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-duration-fast: 160ms;
+  --motion-duration-base: 300ms;
+  --motion-duration-slow: 300ms;
+  --motion-duration-panel: 300ms;
+  --motion-duration-hover-lift: 300ms;
+  --motion-duration-color: 300ms;
+  --motion-duration-overlay-in: 200ms;
+  --motion-duration-overlay-out: 180ms;
+  --motion-duration-panel-in: 300ms;
+  --motion-duration-panel-out: 220ms;
+  --motion-duration-expand-open: 300ms;
+  --motion-duration-expand-close: 300ms;
+  --motion-duration-page-enter: 500ms;
+  --motion-duration-theme-transition: 700ms;
+  --motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --motion-ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-hover: cubic-bezier(0.4, 0, 0.2, 1);
   --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
@@ -73,12 +85,11 @@ body {
 a,
 button,
 input {
-  transition-duration: var(--motion-duration-base);
-  transition-timing-function: var(--motion-ease-standard);
+  transition-timing-function: var(--motion-ease-hover);
 }
 
 .motion-page-enter {
-  animation: page-enter var(--motion-duration-slow) var(--motion-ease-standard);
+  animation: page-enter var(--motion-duration-page-enter) var(--motion-ease-enter);
 }
 
 @keyframes page-enter {
@@ -110,6 +121,26 @@ input {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.motion-lift {
+  transition-property: transform;
+  transition-duration: var(--motion-duration-hover-lift);
+  transition-timing-function: var(--motion-ease-hover);
+}
+
+.motion-colors {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: var(--motion-duration-color);
+  transition-timing-function: var(--motion-ease-hover);
+}
+
+.motion-lift-colors {
+  transition-property: transform, color, background-color, border-color, opacity;
+  transition-duration: var(--motion-duration-hover-lift), var(--motion-duration-color),
+    var(--motion-duration-color), var(--motion-duration-color),
+    var(--motion-duration-color);
+  transition-timing-function: var(--motion-ease-hover);
 }
 
 ::selection {

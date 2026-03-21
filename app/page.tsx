@@ -48,7 +48,7 @@ export default function HomePage() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-all hover:-translate-y-px hover:opacity-70"
+              className="motion-lift-colors hover:-translate-y-px hover:opacity-70"
               style={{ color: "var(--text-secondary)" }}
               aria-label={social.name}
             >
@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           <Link
             href="/work"
-              className="rounded-lg border px-4 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
+              className="motion-lift-colors rounded-lg border px-4 py-2 text-sm font-medium hover:-translate-y-px hover:bg-[var(--bg-hover)]"
             style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           >
             Show all work experiences
@@ -90,7 +90,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           <Link
             href="/blog"
-              className="rounded-lg border px-4 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
+              className="motion-lift-colors rounded-lg border px-4 py-2 text-sm font-medium hover:-translate-y-px hover:bg-[var(--bg-hover)]"
             style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           >
             Show all blogs
@@ -110,7 +110,7 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-xl border p-4 transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
+              className="motion-lift-colors block rounded-xl border p-4 hover:-translate-y-px hover:bg-[var(--bg-hover)]"
               style={{ borderColor: "var(--border)" }}
             >
               <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
@@ -135,7 +135,7 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-xl border p-4 transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
+              className="motion-lift-colors block rounded-xl border p-4 hover:-translate-y-px hover:bg-[var(--bg-hover)]"
               style={{ borderColor: "var(--border)" }}
             >
               <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
