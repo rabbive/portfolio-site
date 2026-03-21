@@ -22,7 +22,7 @@ export function SiteFooter() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[15px] transition-all hover:-translate-y-px hover:underline"
+                  className="motion-lift-colors text-[15px] hover:-translate-y-px hover:underline"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {link.name}
@@ -44,7 +44,7 @@ export function SiteFooter() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
+                  className="motion-lift-colors flex h-9 w-9 items-center justify-center rounded-lg border hover:-translate-y-px hover:bg-[var(--bg-hover)]"
                   style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
                   aria-label={social.name}
                 >

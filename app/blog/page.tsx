@@ -26,7 +26,7 @@ export default function BlogPage() {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setActiveTag(null)}
-          className="rounded-lg border px-3 py-1 text-[12px] font-medium transition-colors"
+          className="motion-colors rounded-lg border px-3 py-1 text-[12px] font-medium"
           style={{
             borderColor: activeTag === null ? "var(--text-primary)" : "var(--border)",
             backgroundColor: activeTag === null ? "var(--text-primary)" : "transparent",
@@ -39,7 +39,7 @@ export default function BlogPage() {
           <button
             key={tag}
             onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-            className="rounded-lg border px-3 py-1 text-[12px] font-medium transition-colors"
+            className="motion-colors rounded-lg border px-3 py-1 text-[12px] font-medium"
             style={{
               borderColor: activeTag === tag ? "var(--text-primary)" : "var(--border)",
               backgroundColor: activeTag === tag ? "var(--text-primary)" : "transparent",

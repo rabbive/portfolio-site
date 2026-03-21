@@ -6,7 +6,7 @@ export function BlogCard({ post, showTags = false }: { post: BlogPost; showTags?
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block transition-transform hover:-translate-y-px"
+      className="motion-lift group block hover:-translate-y-px"
     >
       <div className="flex items-start justify-between gap-5">
         <div className="min-w-0 flex-1">
@@ -37,7 +37,7 @@ export function BlogCard({ post, showTags = false }: { post: BlogPost; showTags?
           </div>
         </div>
         <span
-          className="mt-1 shrink-0 text-[13px] transition-transform group-hover:translate-x-0.5"
+          className="motion-lift mt-1 shrink-0 text-[13px] group-hover:translate-x-0.5"
           style={{ color: "var(--text-muted)" }}
         >
           Read more →

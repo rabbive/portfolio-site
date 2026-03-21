@@ -25,7 +25,7 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[15px] font-medium transition-colors transition-transform hover:-translate-y-px"
+                className="motion-lift-colors text-[15px] font-medium hover:-translate-y-px"
                 style={{
                   color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                 }}

@@ -40,6 +40,9 @@ Use this checklist before considering a UI task done.
 - [ ] Blog tag filter selected/hover states
 - [ ] Copy email feedback state
 - [ ] Link hover/focus-visible parity
+- [ ] Motion timings audited via `npm run parity:motion`
+- [ ] Command palette overlay/panel enter timings match spec
+- [ ] Hover lift timings (header/footer/cards) match motion tokens
 
 ## Verification Commands
 - [ ] `npm run lint`

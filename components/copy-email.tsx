@@ -19,7 +19,7 @@ export function CopyEmailButton({ email }: { email: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1 transition-all hover:-translate-y-px hover:underline"
+      className="motion-lift-colors inline-flex items-center gap-1 hover:-translate-y-px hover:underline"
       style={{ color: "var(--text-secondary)" }}
       aria-label="Copy email"
     >
