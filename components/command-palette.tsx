@@ -1,0 +1,241 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
+import { SearchIcon } from "./icons";
+import {
+  House,
+  BriefcaseBusiness,
+  NotebookText,
+  FileText,
+  Cpu,
+  BookOpen,
+  Clapperboard,
+  Wrench,
+  TerminalSquare,
+  SunMoon,
+  Command,
+  ArrowUpToLine,
+  Copy,
+  Share2,
+  Github,
+  Music2,
+  LucideIcon,
+} from "lucide-react";
+
+type CommandItem = {
+  id: string;
+  title: string;
+  description: string;
+  shortcut?: string;
+  icon: LucideIcon;
+  run: () => void;
+};
+
+export function CommandPalette() {
+  const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState(0);
+  const listboxId = "command-palette-listbox";
+
+  const closePalette = () => {
+    setOpen(false);
+    setQuery("");
+    setSelected(0);
+  };
+
+  const commands = useMemo<CommandItem[]>(() => {
+    const navigate = (href: string) => () => {
+      router.push(href);
+      closePalette();
+    };
+
+    return [
+      { id: "home", title: "Go to Home", description: "Navigate to the homepage", shortcut: "H", icon: House, run: navigate("/") },
+      { id: "work", title: "Go to Work", description: "View work experience", shortcut: "W", icon: BriefcaseBusiness, run: navigate("/work") },
+      { id: "blog", title: "Go to Blog", description: "Browse all blog posts", shortcut: "B", icon: NotebookText, run: navigate("/blog") },
+      { id: "resume", title: "Go to Resume", description: "View and download resume", shortcut: "R", icon: FileText, run: navigate("/resume") },
+      { id: "gears", title: "Go to Gears", description: "View hardware and equipment setup", shortcut: "G", icon: Cpu, run: navigate("/gears") },
+      { id: "books", title: "Go to Books", description: "View recommended books and reading list", shortcut: "K", icon: BookOpen, run: navigate("/books") },
+      { id: "movies", title: "Go to Movies", description: "View favorite movies and shows", shortcut: "M", icon: Clapperboard, run: navigate("/movies") },
+      { id: "setup", title: "Go to Setup", description: "View development setup and tools", shortcut: "S", icon: Wrench, run: navigate("/setup") },
+      { id: "terminal", title: "Go to Terminal", description: "Terminal setup guide", icon: TerminalSquare, run: navigate("/terminal") },
+      {
+        id: "theme",
+        title: "Toggle Theme",
+        description: "Switch between light and dark mode",
+        shortcut: "T",
+        icon: SunMoon,
+        run: () => setTheme(theme === "dark" ? "light" : "dark"),
+      },
+      {
+        id: "palette",
+        title: "Command Palette",
+        description: "Open the command palette",
+        shortcut: "⌘K",
+        icon: Command,
+        run: () => setOpen(true),
+      },
+      {
+        id: "top",
+        title: "Scroll to Top",
+        description: "Scroll to the top of the page",
+        shortcut: "⇧↑",
+        icon: ArrowUpToLine,
+        run: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+      },
+      {
+        id: "copy-email",
+        title: "Copy Email",
+        description: "Copy email address to clipboard",
+        shortcut: "⇧E",
+        icon: Copy,
+        run: async () => {
+          await navigator.clipboard.writeText("hi@ramx.in");
+          closePalette();
+        },
+      },
+      {
+        id: "share",
+        title: "Share Page",
+        description: "Share the current page",
+        shortcut: "⇧S",
+        icon: Share2,
+        run: async () => {
+          if (navigator.share) {
+            await navigator.share({ title: document.title, url: window.location.href });
+          } else {
+            await navigator.clipboard.writeText(window.location.href);
+          }
+          closePalette();
+        },
+      },
+      {
+        id: "github",
+        title: "View GitHub Profile",
+        description: "Open GitHub profile in a new tab",
+        shortcut: "⇧G",
+        icon: Github,
+        run: () => window.open("https://github.com/ramxcodes", "_blank", "noopener,noreferrer"),
+      },
+      {
+        id: "spotify",
+        title: "Open Spotify Song",
+        description: "Open the currently playing Spotify song",
+        shortcut: "⇧M",
+        icon: Music2,
+        run: () => window.open("https://open.spotify.com/", "_blank", "noopener,noreferrer"),
+      },
+    ];
+  }, [router, setTheme, theme]);
+
+  const filtered = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    if (!q) return commands;
+    return commands.filter((c) => `${c.title} ${c.description}`.toLowerCase().includes(q));
+  }, [commands, query]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const isCmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k";
+      if (isCmdK) {
+        e.preventDefault();
+        setOpen((v) => !v);
+        return;
+      }
+      if (!open) return;
+      if (e.key === "Escape") closePalette();
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setSelected((s) => Math.min(s + 1, Math.max(filtered.length - 1, 0)));
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelected((s) => Math.max(s - 1, 0));
+      }
+      if (e.key === "Enter" && filtered[selected]) {
+        e.preventDefault();
+        filtered[selected].run();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [filtered, open, selected]);
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-1 rounded-[11px] border px-2 py-1 text-[11px] transition-colors hover:bg-[var(--bg-hover)] hover:-translate-y-px"
+        style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+        aria-label="Open command palette (⌘K)"
+      >
+        <SearchIcon size={11} />
+        <span className="hidden h-4 w-4 items-center justify-center rounded-[4px] border text-[10px] sm:flex" style={{ borderColor: "var(--border)" }}>⌘</span>
+        <span className="hidden h-4 w-4 items-center justify-center rounded-[4px] border text-[10px] sm:flex" style={{ borderColor: "var(--border)" }}>K</span>
+      </button>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[120] bg-black/30 px-4 pt-20"
+          style={{
+            animation: "fade-overlay var(--motion-duration-base) var(--motion-ease-standard)",
+          }}
+          onClick={closePalette}
+        >
+          <div
+            className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border bg-[var(--bg-card)] shadow-xl"
+            style={{
+              borderColor: "var(--border)",
+              animation:
+                "palette-enter var(--motion-duration-panel) var(--motion-ease-emphasized)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <input
+              autoFocus
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Type a command or search..."
+              className="w-full appearance-none border-0 bg-transparent px-4 py-3 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 focus-visible:outline-none"
+              style={{ color: "var(--text-primary)", boxShadow: "none", WebkitAppearance: "none" }}
+              role="combobox"
+              aria-expanded="true"
+              aria-controls={listboxId}
+            />
+            <div className="h-px" style={{ backgroundColor: "var(--border)" }} />
+            <div id={listboxId} role="listbox" className="max-h-80 overflow-y-auto p-1">
+              {filtered.map((item, idx) => (
+                <button
+                  key={item.id}
+                  onMouseEnter={() => setSelected(idx)}
+                  onClick={() => item.run()}
+                  className="flex w-full items-start justify-between rounded-lg px-3 py-2 text-left transition-colors"
+                  style={{
+                    backgroundColor: idx === selected ? "var(--bg-hover)" : "transparent",
+                  }}
+                  role="option"
+                  aria-selected={idx === selected}
+                >
+                  <span className="flex items-start gap-2.5">
+                    <item.icon size={15} strokeWidth={1.75} style={{ color: "var(--text-secondary)", marginTop: 1 }} />
+                    <span>
+                      <span className="block text-sm font-medium" style={{ color: "var(--text-primary)" }}>{item.title}</span>
+                      <span className="block text-xs" style={{ color: "var(--text-secondary)" }}>{item.description}</span>
+                    </span>
+                  </span>
+                  {item.shortcut && (
+                    <span className="ml-4 text-xs" style={{ color: "var(--text-muted)" }}>{item.shortcut}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

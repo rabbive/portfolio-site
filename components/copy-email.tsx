@@ -19,11 +19,12 @@ export function CopyEmailButton({ email }: { email: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1 transition-colors hover:underline"
+      className="inline-flex items-center gap-1 transition-all hover:-translate-y-px hover:underline"
       style={{ color: "var(--text-secondary)" }}
       aria-label="Copy email"
     >
-      Email {copied ? <CheckIcon size={12} /> : <CopyIcon size={12} />}
+      <span className="text-[15px]">{copied ? "Copied" : email}</span>
+      {copied ? <CheckIcon size={12} /> : <CopyIcon size={12} />}
     </button>
   );
 }

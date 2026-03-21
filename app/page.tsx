@@ -1,8 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig, experiences, blogPosts } from "@/lib/site-data";
 import { ExperienceCard } from "@/components/experience-card";
 import { BlogCard } from "@/components/blog-card";
-import { SocialIcon, CopyIcon, SpotifyIcon } from "@/components/icons";
+import { SocialIcon, SpotifyIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
 
 export default function HomePage() {
@@ -14,11 +15,11 @@ export default function HomePage() {
       {/* Hero */}
       <section className="space-y-4">
         <div className="flex items-center gap-4">
-          <div className="h-16 w-16 overflow-hidden rounded-full border" style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-card)" }}>
-            <div className="flex h-full w-full items-center justify-center text-2xl">👨‍💻</div>
+          <div className="h-16 w-16 overflow-hidden rounded-full border p-0.5" style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-card)" }}>
+            <Image src="/assets/ram.webp" alt="Ramkrishna avatar" width={64} height={64} className="h-full w-full rounded-full object-cover" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">{siteConfig.name}</h1>
+            <h1 className="text-[40px] leading-[1.06] font-semibold tracking-[-0.02em] sm:text-[42px]">{siteConfig.name}</h1>
             <p className="flex items-center gap-1 text-sm" style={{ color: "var(--text-secondary)" }}>
               {siteConfig.tagline} ·{" "}
               <CopyEmailButton email={siteConfig.email} />
@@ -40,18 +41,18 @@ export default function HomePage() {
         </div>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           {siteConfig.socials.map((social) => (
             <a
               key={social.name}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:opacity-70"
+              className="transition-all hover:-translate-y-px hover:opacity-70"
               style={{ color: "var(--text-secondary)" }}
               aria-label={social.name}
             >
-              <SocialIcon name={social.icon} size={16} />
+              <SocialIcon name={social.icon} size={15} />
             </a>
           ))}
         </div>
@@ -60,17 +61,17 @@ export default function HomePage() {
       </section>
 
       {/* Experience */}
-      <section className="space-y-6">
+      <section className="space-y-5">
         <h2 className="text-xl font-bold">Experience</h2>
         <div className="space-y-6">
           {previewExperiences.map((exp) => (
-            <ExperienceCard key={exp.company} experience={exp} showDetails />
+            <ExperienceCard key={exp.company} experience={exp} showDetails longMeta />
           ))}
         </div>
         <div className="flex justify-center">
           <Link
             href="/work"
-            className="rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--bg-hover)]"
+              className="rounded-lg border px-4 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
             style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           >
             Show all work experiences
@@ -79,7 +80,7 @@ export default function HomePage() {
       </section>
 
       {/* Blog */}
-      <section className="space-y-6">
+      <section className="space-y-5">
         <h2 className="text-xl font-bold">Blog</h2>
         <div className="space-y-6">
           {previewPosts.map((post) => (
@@ -89,7 +90,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           <Link
             href="/blog"
-            className="rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--bg-hover)]"
+              className="rounded-lg border px-4 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
             style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           >
             Show all blogs
@@ -98,7 +99,7 @@ export default function HomePage() {
       </section>
 
       {/* Development */}
-      <section className="space-y-6">
+      <section className="space-y-5">
         <h2 className="text-xl font-bold">Development</h2>
         <div className="space-y-3">
           {[
@@ -109,7 +110,7 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-xl border p-4 transition-colors hover:bg-[var(--bg-hover)]"
+              className="block rounded-xl border p-4 transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
               style={{ borderColor: "var(--border)" }}
             >
               <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
@@ -124,7 +125,7 @@ export default function HomePage() {
       </section>
 
       {/* Personal */}
-      <section className="space-y-6">
+      <section className="space-y-5">
         <h2 className="text-xl font-bold">Personal</h2>
         <div className="space-y-3">
           {[
@@ -134,7 +135,7 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-xl border p-4 transition-colors hover:bg-[var(--bg-hover)]"
+              className="block rounded-xl border p-4 transition-all hover:-translate-y-px hover:bg-[var(--bg-hover)]"
               style={{ borderColor: "var(--border)" }}
             >
               <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
@@ -151,9 +152,10 @@ export default function HomePage() {
       {/* Quote */}
       <section>
         <blockquote
-          className="rounded-xl border p-6"
+          className="relative overflow-hidden rounded-xl border p-6"
           style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-card)" }}
         >
+          <span className="pointer-events-none absolute left-4 top-4 text-8xl font-semibold opacity-5">“</span>
           <p className="font-mono text-sm italic" style={{ color: "var(--text-secondary)" }}>
             &ldquo;{siteConfig.quote.text}&rdquo;
           </p>

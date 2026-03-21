@@ -14,7 +14,7 @@ export default function BlogPage() {
     : blogPosts;
 
   return (
-    <div className="space-y-8 pt-8">
+    <div className="space-y-7 pt-8">
       <div>
         <h1 className="text-2xl font-bold">Blog</h1>
         <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
@@ -26,7 +26,7 @@ export default function BlogPage() {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setActiveTag(null)}
-          className="rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors"
+          className="rounded-lg border px-3 py-1 text-[12px] font-medium transition-colors"
           style={{
             borderColor: activeTag === null ? "var(--text-primary)" : "var(--border)",
             backgroundColor: activeTag === null ? "var(--text-primary)" : "transparent",
@@ -39,7 +39,7 @@ export default function BlogPage() {
           <button
             key={tag}
             onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-            className="rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors"
+            className="rounded-lg border px-3 py-1 text-[12px] font-medium transition-colors"
             style={{
               borderColor: activeTag === tag ? "var(--text-primary)" : "var(--border)",
               backgroundColor: activeTag === tag ? "var(--text-primary)" : "transparent",
@@ -52,7 +52,7 @@ export default function BlogPage() {
       </div>
 
       {/* Posts */}
-      <div className="space-y-6">
+      <div className="space-y-7">
         {filtered.map((post) => (
           <BlogCard key={post.slug} post={post} showTags />
         ))}

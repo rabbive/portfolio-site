@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Ramkrishna Swarnkar Portfolio - Ramxcodes",
   description: "Love to build cool stuff, content creator & polymath.",
   tagline: "Engineer · Polymath",
-  email: "ramkrishna@example.com",
+  email: "hi@ramx.in",
   avatar: "/assets/ram.webp",
   socials: [
     { name: "X", url: "https://x.com/ramxcodes", icon: "x" },
