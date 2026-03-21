@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Site (ramx.in Replica)
 
-## Getting Started
+A high-fidelity Next.js replica of [ramx.in](https://ramx.in), focused on matching layout, typography, interactions, and route structure as closely as possible.
 
-First, run the development server:
+## Tech Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4
+- `next-themes` for dark/light mode
+- `lucide-react` + custom brand SVGs for icon parity
+
+## Implemented Routes
+
+- `/`
+- `/work`
+- `/blog`
+- `/blog/[slug]`
+- `/resume`
+- `/books`
+- `/movies`
+- `/gears`
+- `/setup`
+- `/terminal`
+- `/api/visitors` (stub)
+- `/api/spotify/currently-playing` (stub)
+
+## Run Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+Both commands should pass before pushing changes.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+app/         App Router pages, layout, and API routes
+components/  Reusable UI components (header, footer, cards, command palette)
+lib/         Content/data source and shared logic
+public/      Static assets and fonts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design/Parity Notes
 
-## Deploy on Vercel
+- Global guidance lives in `AGENTS.md`.
+- Visual + behavior parity checkpoints live in `PARITY_CHECKLIST.md`.
+- Motion/easing tokens are defined in `app/globals.css`.
+- Keep source parity over stylistic preference when making UI changes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project can be deployed on any Next.js-compatible platform (for example, Vercel).
