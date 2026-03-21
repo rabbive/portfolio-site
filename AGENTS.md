@@ -92,7 +92,13 @@ This is a single-service app: **Next.js dev server** on port 3000. No databases,
 - `npm run dev` starts the dev server at `http://localhost:3000`.
 - All standard commands are in the **Commands** section above.
 
+### Motion parity tooling
+The update script installs Playwright Chromium (`npx playwright install --with-deps chromium`), so the `parity:motion` scripts work without any manual bootstrap. To run motion capture:
+1. Start the dev server: `npm run dev`
+2. In another terminal: `npm run parity:motion:capture:local:light` (or the full suite `npm run parity:motion`)
+
+Playwright browsers are cached in `~/.cache/ms-playwright/` (~620 MB). If the cache is persisted between runs, `npx playwright install chromium` is a fast no-op; otherwise it re-downloads.
+
 ### Caveats
 - **Google Fonts**: Geist / Geist Mono are fetched via `next/font/google` at build/dev time, requiring internet access. If fonts fail to load, the site still renders with fallback system fonts.
-- **Playwright (optional)**: The `parity:motion` scripts require Playwright Chromium (`npx playwright install chromium`). This is only needed for motion-timing regression checks, not for normal development or the core site to function.
 - **No `.env` required**: There are no environment variables needed to run the app.
