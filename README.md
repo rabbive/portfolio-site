@@ -1,6 +1,6 @@
-# Portfolio Site (ramx.in Replica)
+# Portfolio Site
 
-A high-fidelity Next.js replica of [ramx.in](https://ramx.in), focused on matching layout, typography, interactions, and route structure as closely as possible.
+A high-fidelity Next.js site focused on matching layout, typography, interactions, and route structure as closely as possible.
 
 ## Tech Stack
 
