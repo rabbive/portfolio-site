@@ -82,3 +82,17 @@ A task is not done if:
 ## Notes
 - Keep generated artifacts and local-only files out of commits.
 - If a new parity rule is discovered, add it here immediately.
+
+## Cursor Cloud specific instructions
+
+### Services
+This is a single-service app: **Next.js dev server** on port 3000. No databases, Docker, or external services are required. All API routes (`/api/visitors`, `/api/spotify/currently-playing`) are stubs returning hardcoded JSON.
+
+### Running the app
+- `npm run dev` starts the dev server at `http://localhost:3000`.
+- All standard commands are in the **Commands** section above.
+
+### Caveats
+- **Google Fonts**: Geist / Geist Mono are fetched via `next/font/google` at build/dev time, requiring internet access. If fonts fail to load, the site still renders with fallback system fonts.
+- **Playwright (optional)**: The `parity:motion` scripts require Playwright Chromium (`npx playwright install chromium`). This is only needed for motion-timing regression checks, not for normal development or the core site to function.
+- **No `.env` required**: There are no environment variables needed to run the app.
