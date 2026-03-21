@@ -94,7 +94,7 @@ export function CommandPalette() {
         shortcut: "⇧E",
         icon: Copy,
         run: async () => {
-          await navigator.clipboard.writeText("hi@ramx.in");
+          await navigator.clipboard.writeText("ashwanthkumaravel@gmail.com");
           closePalette();
         },
       },
@@ -119,7 +119,7 @@ export function CommandPalette() {
         description: "Open GitHub profile in a new tab",
         shortcut: "⇧G",
         icon: Github,
-        run: () => window.open("https://github.com/ramxcodes", "_blank", "noopener,noreferrer"),
+        run: () => window.open("https://github.com/rabbive", "_blank", "noopener,noreferrer"),
       },
       {
         id: "spotify",

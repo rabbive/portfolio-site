@@ -1,13 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig, experiences, blogPosts } from "@/lib/site-data";
+import { siteConfig, experiences, blogPosts, projects } from "@/lib/site-data";
 import { ExperienceCard } from "@/components/experience-card";
 import { BlogCard } from "@/components/blog-card";
-import { SocialIcon, SpotifyIcon } from "@/components/icons";
+import { SocialIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
 
 export default function HomePage() {
-  const previewExperiences = experiences.slice(0, 3);
   const previewPosts = blogPosts.slice(0, 3);
 
   return (
@@ -16,7 +15,7 @@ export default function HomePage() {
       <section className="space-y-4">
         <div className="flex items-center gap-4">
           <div className="h-16 w-16 overflow-hidden rounded-full border p-0.5" style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-card)" }}>
-            <Image src="/assets/ram.webp" alt="Ramkrishna avatar" width={64} height={64} className="h-full w-full rounded-full object-cover" />
+            <Image src={siteConfig.avatar} alt="Ashwanth avatar" width={64} height={64} className="h-full w-full rounded-full object-cover" />
           </div>
           <div>
             <h1 className="text-[40px] leading-[1.06] font-semibold tracking-[-0.02em] sm:text-[42px]">{siteConfig.name}</h1>
@@ -29,16 +28,6 @@ export default function HomePage() {
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
           {siteConfig.description}
         </p>
-
-        {/* Spotify */}
-        <div className="flex items-center gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
-          <SpotifyIcon size={16} />
-          <span>Last played</span>
-          <span>—</span>
-          <span className="truncate" style={{ color: "var(--text-secondary)" }}>
-            Maula Mere Maula · Roop Kumar Rathod, Sayeed Quadri
-          </span>
-        </div>
 
         {/* Social Icons */}
         <div className="flex items-center gap-2.5">
@@ -60,11 +49,39 @@ export default function HomePage() {
         <hr style={{ borderColor: "var(--border)" }} />
       </section>
 
+      {/* Education */}
+      <section className="space-y-5">
+        <h2 className="text-xl font-bold">Education</h2>
+        <div
+          className="rounded-xl border p-4"
+          style={{ borderColor: "var(--border)" }}
+        >
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                Vellore Institute of Technology
+              </h3>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                B.Tech in Computer Science and Engineering
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                August 2023 – May 2027
+              </p>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+                Chennai, India
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Experience */}
       <section className="space-y-5">
         <h2 className="text-xl font-bold">Experience</h2>
         <div className="space-y-6">
-          {previewExperiences.map((exp) => (
+          {experiences.map((exp) => (
             <ExperienceCard key={exp.company} experience={exp} showDetails longMeta />
           ))}
         </div>
@@ -76,6 +93,45 @@ export default function HomePage() {
           >
             Show all work experiences
           </Link>
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section className="space-y-5" id="projects">
+        <h2 className="text-xl font-bold">Projects</h2>
+        <div className="space-y-4">
+          {projects.map((project) => (
+            <div
+              key={project.slug}
+              className="rounded-xl border p-4 space-y-2"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+                    {project.title}
+                  </h3>
+                  <p className="mt-0.5 text-sm" style={{ color: "var(--text-secondary)" }}>
+                    {project.description}
+                  </p>
+                </div>
+                <span className="shrink-0 text-xs" style={{ color: "var(--text-muted)" }}>
+                  {project.year}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-md border px-2 py-0.5 text-xs"
+                    style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -155,7 +211,7 @@ export default function HomePage() {
           className="relative overflow-hidden rounded-xl border p-6"
           style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-card)" }}
         >
-          <span className="pointer-events-none absolute left-4 top-4 text-8xl font-semibold opacity-5">“</span>
+          <span className="pointer-events-none absolute left-4 top-4 text-8xl font-semibold opacity-5">&ldquo;</span>
           <p className="font-mono text-sm italic" style={{ color: "var(--text-secondary)" }}>
             &ldquo;{siteConfig.quote.text}&rdquo;
           </p>
