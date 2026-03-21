@@ -22,25 +22,32 @@
 }
 
 :root {
-  --bg: #fafafa;
+  --bg: #f6f6f7;
   --bg-card: #ffffff;
-  --bg-hover: #f5f5f5;
+  --bg-hover: #f2f2f3;
   --text-primary: #0a0a0a;
-  --text-secondary: #525252;
-  --text-muted: #a3a3a3;
-  --border: #e5e5e5;
+  --text-secondary: #666666;
+  --text-muted: #9a9a9a;
+  --border: #dfdfdf;
   --border-hover: #d4d4d4;
   --accent: #22c55e;
+  --motion-duration-fast: 120ms;
+  --motion-duration-base: 180ms;
+  --motion-duration-slow: 260ms;
+  --motion-duration-panel: 320ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .dark {
   --bg: #0a0a0a;
-  --bg-card: #171717;
-  --bg-hover: #1a1a1a;
+  --bg-card: #121212;
+  --bg-hover: #161616;
   --text-primary: #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-muted: #525252;
-  --border: #262626;
+  --text-secondary: #b3b3b3;
+  --text-muted: #6c6c6c;
+  --border: #2a2a2a;
   --border-hover: #404040;
   --accent: #22c55e;
 }
@@ -60,9 +67,73 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+a,
+button,
+input {
+  transition-duration: var(--motion-duration-base);
+  transition-timing-function: var(--motion-ease-standard);
+}
+
+.motion-page-enter {
+  animation: page-enter var(--motion-duration-slow) var(--motion-ease-standard);
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes palette-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 ::selection {
   background-color: var(--text-primary);
   color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--text-primary) 72%, transparent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .motion-page-enter {
+    animation: none !important;
+  }
 }

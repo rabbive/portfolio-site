@@ -4,12 +4,20 @@ import { useState } from "react";
 import type { Experience } from "@/lib/site-data";
 import { ChevronDownIcon } from "./icons";
 
-export function ExperienceCard({ experience, showDetails = false }: { experience: Experience; showDetails?: boolean }) {
+export function ExperienceCard({
+  experience,
+  showDetails = false,
+  longMeta = false,
+}: {
+  experience: Experience;
+  showDetails?: boolean;
+  longMeta?: boolean;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="group">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h3 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
@@ -28,10 +36,10 @@ export function ExperienceCard({ experience, showDetails = false }: { experience
         </div>
         <div className="text-right shrink-0">
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            {experience.dateShort}
+            {longMeta ? experience.dateLong : experience.dateShort}
           </p>
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            {experience.locationShort}
+            {longMeta ? experience.locationLong : experience.locationShort}
           </p>
         </div>
       </div>
@@ -40,17 +48,33 @@ export function ExperienceCard({ experience, showDetails = false }: { experience
         <>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="mt-2 flex items-center gap-1 text-xs transition-colors hover:underline"
+            className="mt-2 flex items-center gap-1 text-[11px] transition-colors hover:underline"
             style={{ color: "var(--text-muted)" }}
             aria-expanded={expanded}
             aria-label="Expand details"
           >
-            <ChevronDownIcon size={14} />
+            <span
+              className="transition-transform"
+              style={{
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
+              <ChevronDownIcon size={14} />
+            </span>
             <span>{expanded ? "Hide" : "Expand"} details</span>
           </button>
 
-          {expanded && (
-            <div className="mt-4 space-y-4" style={{ color: "var(--text-secondary)" }}>
+          <div
+            className="grid transition-all"
+            style={{
+              gridTemplateRows: expanded ? "1fr" : "0fr",
+              opacity: expanded ? 1 : 0,
+              marginTop: expanded ? 16 : 0,
+              transitionDuration: "var(--motion-duration-slow)",
+              transitionTimingFunction: "var(--motion-ease-standard)",
+            }}
+          >
+            <div className="space-y-4 overflow-hidden" style={{ color: "var(--text-secondary)" }}>
               <div>
                 <p className="mb-1 text-xs font-medium" style={{ color: "var(--text-muted)" }}>
                   {experience.dateLong}
@@ -93,7 +117,7 @@ export function ExperienceCard({ experience, showDetails = false }: { experience
                 </div>
               )}
             </div>
-          )}
+          </div>
         </>
       )}
     </div>

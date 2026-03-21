@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
-import { SearchIcon } from "./icons";
+import { CommandPalette } from "./command-palette";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -17,15 +17,15 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full" style={{ backgroundColor: "var(--bg)" }}>
-      <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-6">
-        <nav className="flex items-center gap-6">
+      <div className="mx-auto flex h-14 max-w-[680px] items-center justify-between px-6">
+        <nav className="flex items-center gap-5">
           {navLinks.map((link) => {
             const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm transition-colors"
+                className="text-[15px] font-medium transition-colors transition-transform hover:-translate-y-px"
                 style={{
                   color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                 }}
@@ -36,15 +36,7 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="flex items-center gap-2">
-          <button
-            className="flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs transition-colors hover:bg-[var(--bg-hover)]"
-            style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
-            aria-label="Open command palette (⌘K)"
-          >
-            <SearchIcon size={12} />
-            <span className="hidden sm:inline">⌘</span>
-            <span className="hidden sm:inline">K</span>
-          </button>
+          <CommandPalette />
           <ThemeToggle />
         </div>
       </div>

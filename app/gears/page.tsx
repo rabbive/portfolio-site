@@ -23,7 +23,7 @@ export default function GearsPage() {
           <div className="space-y-3">
             {gears
               .filter((g) => g.category === cat)
-              .map((gear, i) => (
+              .map((gear) => (
                 <div
                   key={gear.name}
                   className="flex items-center gap-3 rounded-xl border p-4"
