@@ -3,7 +3,7 @@ import { experiences } from "@/lib/site-data";
 import { ExperienceCard } from "@/components/experience-card";
 
 export const metadata: Metadata = {
-  title: "Work Experience - Professional Journey",
+  title: "Work Experience - Ashwanth Kumaravel",
   description: "My work experiences across different companies and roles.",
 };
 

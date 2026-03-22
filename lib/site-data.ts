@@ -1,29 +1,37 @@
 export const siteConfig = {
-  name: "Ramkrishna Swarnkar",
-  title: "Ramkrishna Swarnkar Portfolio - Ramxcodes",
-  description: "Love to build cool stuff, content creator & polymath.",
-  tagline: "Engineer · Polymath",
-  email: "hi@ramx.in",
+  name: "Ashwanth Kumaravel",
+  title: "Ashwanth Kumaravel - Portfolio",
+  description:
+    "CS student at VIT Chennai building with ML, distributed systems, and applied cryptography.",
+  tagline: "CS Student · Builder",
+  email: "ashwanthkumaravel@gmail.com",
   avatar: "/assets/ram.webp",
   socials: [
-    { name: "X", url: "https://x.com/ramxcodes", icon: "x" },
-    { name: "LinkedIn", url: "https://linkedin.com/in/ramxcodes", icon: "linkedin" },
-    { name: "Github", url: "https://github.com/ramxcodes", icon: "github" },
-    { name: "YouTube", url: "https://youtube.com/@ramxcodes", icon: "youtube" },
-    { name: "Instagram", url: "https://instagram.com/ramxcodes", icon: "instagram" },
-    { name: "Pinterest", url: "https://pinterest.com/ramxcodes", icon: "pinterest" },
-    { name: "Medium", url: "https://medium.com/@ramxcodes", icon: "medium" },
-    { name: "Email", url: "mailto:ramkrishna@example.com", icon: "mail" },
+    {
+      name: "LinkedIn",
+      url: "https://linkedin.com/in/ashwanthk",
+      icon: "linkedin",
+    },
+    {
+      name: "Github",
+      url: "https://github.com/rabbive",
+      icon: "github",
+    },
+    {
+      name: "Email",
+      url: "mailto:ashwanthkumaravel@gmail.com",
+      icon: "mail",
+    },
   ],
   quote: {
-    text: "If the pain doesn't kill me, it will only make me stronger.",
-    author: "Sung Jin-Woo",
-    source: "Solo Leveling",
+    text: "The only way to do great work is to love what you do.",
+    author: "Steve Jobs",
+    source: "Stanford Commencement, 2005",
   },
   resumeQuote: {
-    text: "I'll take a potato chip... AND EAT IT!",
-    author: "Light Yagami",
-    source: "Death Note",
+    text: "Talk is cheap. Show me the code.",
+    author: "Linus Torvalds",
+    source: "LKML",
   },
 };
 
@@ -42,97 +50,100 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    company: "good day :3",
-    role: "SDE-L1 (Full Stack)",
-    type: "Working",
-    dateShort: "Jan 26 – Present",
-    dateLong: "January 2026 – Present",
-    locationShort: "Hyd, IN",
-    locationLong: "Hyderabad, India (On-Site)",
-    current: true,
-    technologies: ["Next.js", "Tailwind CSS", "TypeScript", "React", "Figma", "Vercel", "AWS", "Postman", "Bun"],
+    company: "Corizo",
+    role: "Machine Learning Intern",
+    dateShort: "Aug 23 – Sep 23",
+    dateLong: "August 2023 – September 2023",
+    locationShort: "Remote",
+    locationLong: "Remote",
+    technologies: ["Python", "scikit-learn", "pandas", "NumPy"],
     highlights: [
-      "Collaborated cross-functionally with development teams to design, implement, and deploy scalable internal solutions.",
-      "Developed and maintained internal tools and infrastructure to support business operations and team productivity.",
-      "Optimized website and application performance, resulting in improved user experience and system efficiency.",
+      "Completed hands-on training in supervised and unsupervised machine learning techniques using Python, scikit-learn, and pandas under industry mentor guidance.",
+      "Built and evaluated ML models for real-world datasets, applying data preprocessing, feature engineering, and model validation to improve predictive accuracy.",
+      "Gained practical exposure to the full ML pipeline from exploratory data analysis (EDA) to model evaluation, reinforcing core concepts in applied artificial intelligence.",
     ],
   },
+];
+
+export interface Project {
+  title: string;
+  slug: string;
+  description: string;
+  year: string;
+  technologies: string[];
+  highlights: string[];
+  github?: string;
+}
+
+export const projects: Project[] = [
   {
-    company: "Promote",
-    role: "Founding Frontend Engineer",
-    dateShort: "Aug 25 – Dec 25",
-    dateLong: "August 2025 – December 2025",
-    locationShort: "USA",
-    locationLong: "United States (Remote)",
-    technologies: ["Next.js", "Tailwind CSS", "TypeScript", "React", "Figma", "Vercel", "AWS", "Postman", "Bun"],
-    highlights: [
-      "Enhanced user experience and interface design through implementation of consistent design systems, accessibility standards, and performance optimizations.",
-      "Integrated and optimized backend API connections, implementing efficient data fetching strategies and error handling mechanisms.",
-      "Led a comprehensive codebase refactoring initiative that improved maintainability, scalability, and development velocity across the entire platform.",
-      "Architected and developed the complete frontend infrastructure for the platform, a comprehensive solution for creating and managing promotional campaigns.",
+    title: "Schrödinger Mail",
+    slug: "schrodinger-mail",
+    description:
+      "Full-stack post-quantum secure email client implementing NIST-standardised cryptographic algorithms.",
+    year: "2025",
+    technologies: [
+      "Python",
+      "Flask",
+      "TypeScript",
+      "SQLite",
+      "Docker",
+      "liboqs",
+      "Kubernetes",
     ],
+    highlights: [
+      "Implemented CRYSTALS-Kyber768 (ML-KEM, FIPS 203) for key encapsulation and CRYSTALS-Dilithium3 (ML-DSA, FIPS 204) for digital signatures at NIST Security Level 3.",
+      "Designed a Signed KEM-DEM pipeline with Sign-then-Encrypt workflow; implemented 3 security levels including a hybrid RSA-2048 + Kyber768 mode deriving the AES key via SHA-256.",
+      "Exposed 20+ REST API endpoints covering send, receive, folder management, full-text search, key export, and live crypto benchmarks; validated across 3 test suites.",
+      "Containerised with Docker Compose and Kubernetes manifests; hardened with Argon2id password hashing, per-session CSRF tokens, rate limiting (200 req/min), and a persistent security audit log.",
+    ],
+    github: "https://github.com/rabbive",
   },
   {
-    company: "Upsurge Labs",
-    role: "Backend Developer Intern",
-    dateShort: "Jun 25 – Jul 25",
-    dateLong: "June 2025 – July 2025",
-    locationShort: "Bangalore, IN",
-    locationLong: "Bangalore, India (On-Site)",
-    technologies: ["NestJS", "Postman", "TypeScript", "Express"],
+    title: "ECHO",
+    slug: "echo-consensus-protocol",
+    description:
+      "Novel distributed consensus protocol for heterogeneous IoT edge environments.",
+    year: "2024 – Present",
+    technologies: ["Python", "asyncio", "pytest"],
     highlights: [
-      "Streamlined development workflows by optimizing internal tools and maintaining detailed technical documentation.",
-      "Testing agent functionality, authentication, automation, and system stability.",
-      "Engineered and deployed multiple high-performance agents, enhancing product capabilities and user experience.",
-      "Backend development for Bhindi.io, a flagship product of Upsurge Labs, focusing on core infrastructure and agent development.",
+      "Designed a novel distributed consensus protocol benchmarked against Raft, PBFT, and IOTA with a focus on low-resource constrained nodes.",
+      "Built a complete Python simulation achieving 22 passing unit tests; implemented a CLI runner and metrics collection pipeline for latency and throughput analysis.",
+      "Stress-tested provisional consensus logic under network partition scenarios; Phase 2 Raspberry Pi hardware prototype and research paper submission in progress.",
     ],
+    github: "https://github.com/rabbive",
   },
   {
-    company: "Prepeasy",
-    role: "Founding Engineer",
-    dateShort: "Apr 25 – Jun 25",
-    dateLong: "April 2025 – June 2025",
-    locationShort: "India",
-    locationLong: "Remote (India)",
-    technologies: ["Next.js", "Express", "TypeScript", "React", "Prisma", "PostgreSQL", "Vercel", "AWS", "Postman", "Bun"],
-    highlights: [
-      "Engineered a complete Learning Management System (LMS) with an integrated Quiz Platform, featuring progress tracking and performance analytics.",
-      "Built and integrated an AI-powered Cover Letter Generator with customizable templates.",
-      "Designed and developed comprehensive AI Resume Builder with automated optimization features.",
-      "Single-handedly engineered and deployed a scalable AI Interview Platform, reducing per-session costs from $7 to $0.30.",
-      "Independently architected and developed end-to-end full-stack solutions for core product features, resulting in 95% cost reduction in AI interview services.",
+    title: "CogniZap",
+    slug: "cognizap",
+    description:
+      "AI learning platform that auto-generates flashcards and quizzes from real-time trending topics.",
+    year: "2024",
+    technologies: [
+      "SvelteKit",
+      "TypeScript",
+      "Tailwind CSS",
+      "Perplexity Sonar API",
     ],
+    highlights: [
+      "Auto-generates flashcards and quizzes from real-time trending topics using the Perplexity Sonar API with live fact-checking and source citations.",
+      "Architected 6 specialised learning modules including a Research Assistant, Live Data tracker, Science Monitor, and gamified leaderboard.",
+      "Supported PDF/PPTX upload-based content extraction with adjustable difficulty levels; deployed to Vercel with server-side API routes.",
+    ],
+    github: "https://github.com/rabbive",
   },
   {
-    company: "Expelee",
-    role: "SDE-1 (Full Stack) Intern",
-    dateShort: "Aug 23 – Apr 25",
-    dateLong: "Aug 2023 – April 2025",
-    locationShort: "UAE",
-    locationLong: "Dubai, UAE (Remote - Freelance)",
-    technologies: ["Bun", "Express", "Figma", "JavaScript", "MongoDB", "Next.js", "Node.js", "PostgreSQL", "Prisma", "React", "TypeScript", "Postman", "Vercel", "AWS"],
+    title: "ViBoot-Enhanced",
+    slug: "viboot-enhanced",
+    description:
+      "VTOP browser extension for automated attendance tracking and grade insights used by VIT students.",
+    year: "2023 – 2024",
+    technologies: ["JavaScript", "WebExtensions API", "HTML", "CSS"],
     highlights: [
-      "TEQ Network: Designed and developed landing page using MERN, Tailwind CSS, and Web3 wallet integration.",
-      "Pars Network: Engineered landing experience with MERN, Tailwind CSS, and GSAP for advanced animations.",
-      "Altranium: Developed immersive gaming platform using Three.js, MERN, Tailwind, and Framer Motion.",
-      "GPU AI: Integrated Three.js for interactive 3D elements alongside full-stack features.",
-      "Core AI: Designed and developed with Next.js, Tailwind CSS, Framer Motion, shadcn.",
-      "Riskmitra: Built full-stack product with Next.js, Tailwind CSS, Framer Motion, shadcn, wallet integration.",
+      "Extended an open-source Chrome extension for automated attendance tracking and grade insights; contributed 18 commits including bug fixes and UI improvements.",
+      "Ported the extension to Firefox by migrating to the WebExtensions API and resolving Manifest v3 compatibility issues, enabling cross-browser support.",
     ],
-  },
-  {
-    company: "Flameloop",
-    role: "Junior Frontend Developer",
-    dateShort: "Jun 23 – Jul 23",
-    dateLong: "June 2023 – July 2023",
-    locationShort: "Indore, IN",
-    locationLong: "Indore, India (offline)",
-    technologies: ["HTML", "CSS", "JavaScript", "Figma", "BootStrap"],
-    highlights: [
-      "Design & Developed multiple websites for clients.",
-      "Collaborated with cross-functional teams to deliver high-quality software on time.",
-      "Developed and maintained web applications using HTML, CSS, and JavaScript.",
-    ],
+    github: "https://github.com/rabbive",
   },
 ];
 
@@ -147,76 +158,94 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    title: "How to optimise a Next.js web app",
-    slug: "how-to-optimise-a-next-js-web-app",
-    description: "Optimise your Next.js web app to make it lightning fast!",
-    date: "January 31, 2026",
-    tags: ["Next.js", "Performance"],
-    content: "This post covers key strategies for optimizing Next.js applications including image optimization, code splitting, lazy loading, caching strategies, and server-side rendering best practices.",
+    title: "Post-Quantum Cryptography: Building a Secure Email Client",
+    slug: "post-quantum-cryptography-secure-email",
+    description:
+      "How I built Schrödinger Mail with CRYSTALS-Kyber and Dilithium for post-quantum security.",
+    date: "March 10, 2025",
+    tags: ["Cryptography", "Python", "Security"],
+    content:
+      "A deep dive into building a post-quantum secure email client using NIST-standardised algorithms. This post covers the KEM-DEM pipeline, hybrid encryption modes, and how CRYSTALS-Kyber768 and Dilithium3 work together to provide defence-in-depth at NIST Security Level 3.",
   },
   {
-    title: "What is taste and how can you develop it?",
-    slug: "what-is-taste-and-how-can-you-develop-it",
-    description: "Understanding what is taste, resources and how to practice",
-    date: "December 7, 2025",
-    tags: ["Design", "Personal"],
-    content: "Taste is the ability to discern quality and make refined choices. This post explores what taste means in design and engineering, and practical ways to develop it through deliberate exposure and practice.",
+    title: "Distributed Consensus for IoT: Beyond Raft and PBFT",
+    slug: "distributed-consensus-iot-beyond-raft-pbft",
+    description:
+      "Designing a consensus protocol for heterogeneous IoT edge networks.",
+    date: "January 15, 2025",
+    tags: ["Distributed Systems", "Python", "IoT"],
+    content:
+      "Traditional consensus protocols like Raft and PBFT weren't designed for constrained IoT devices. This post explores the design decisions behind ECHO, a novel protocol targeting low-resource edge nodes with tunable consistency guarantees.",
   },
   {
-    title: "Go in bits",
-    slug: "go-in-bits",
-    description: "Archive of all the links from my socials for go tuts.",
-    date: "October 2, 2025",
-    tags: ["Go", "Backend"],
-    content: "A curated collection of Go programming tutorials and resources shared across social media platforms, compiled here for easy reference.",
+    title: "Building an AI Learning Platform with SvelteKit",
+    slug: "ai-learning-platform-sveltekit",
+    description:
+      "Architecture and lessons from building CogniZap with real-time AI content generation.",
+    date: "November 20, 2024",
+    tags: ["AI", "SvelteKit", "TypeScript"],
+    content:
+      "How I built CogniZap — an AI-powered learning platform that auto-generates flashcards and quizzes from trending topics using the Perplexity Sonar API. Covers the modular SvelteKit architecture, server-side API routes, and zero-config demo mode.",
   },
   {
-    title: "My Winter Arc",
-    slug: "my-winter-arc",
-    description: "This blog contains all the links of my content from twitter & Instagram.",
-    date: "October 1, 2025",
-    tags: ["Personal"],
-    content: "A personal reflection on growth, discipline, and the journey of building in public during the winter months.",
+    title: "Porting a Chrome Extension to Firefox",
+    slug: "porting-chrome-extension-to-firefox",
+    description:
+      "Lessons from migrating ViBoot-Enhanced to the WebExtensions API.",
+    date: "September 5, 2024",
+    tags: ["JavaScript", "Browser Extensions"],
+    content:
+      "A practical guide to porting Chrome extensions to Firefox, covering Manifest v3 compatibility issues, WebExtensions API differences, and cross-browser testing strategies learned while working on ViBoot-Enhanced.",
   },
   {
-    title: "How to be me - Learn, Build, and Crush it",
-    slug: "how-to-be-me-learn-build-and-crush-it",
-    description: "My journey of building, managing, and thinking differently.",
-    date: "September 1, 2025",
-    tags: ["Personal"],
-    content: "Insights from my journey as a developer — how I approach learning, building projects, and maintaining momentum.",
+    title: "Getting Started with ML Pipelines in Python",
+    slug: "getting-started-ml-pipelines-python",
+    description:
+      "From EDA to model evaluation — a practical walkthrough.",
+    date: "August 20, 2024",
+    tags: ["Machine Learning", "Python"],
+    content:
+      "A beginner-friendly walkthrough of the full machine learning pipeline: exploratory data analysis, feature engineering, model selection, and validation using scikit-learn and pandas.",
   },
   {
-    title: "Better Frontend Part 1: Learn development and design principles",
-    slug: "better-frontend-part-1-learn-development-and-design-principles",
-    description: "A guide to better frontend development and design principles for beginners part 1",
-    date: "February 25, 2025",
-    tags: ["Frontend", "Design"],
-    content: "Part one of a series on leveling up frontend skills — covering foundational design principles, layout strategies, and development best practices.",
+    title: "Docker and Kubernetes for Side Projects",
+    slug: "docker-kubernetes-side-projects",
+    description:
+      "Containerising and orchestrating your projects the practical way.",
+    date: "July 10, 2024",
+    tags: ["Docker", "Kubernetes", "DevOps"],
+    content:
+      "How to containerise full-stack applications with Docker Compose and deploy with Kubernetes manifests. Practical tips from deploying Schrödinger Mail including Argon2id hashing, CSRF protection, and rate limiting.",
   },
   {
-    title: "JavaScript for Frontend Development: A Beginner's Guide",
-    slug: "javascript-for-frontend-development-1",
-    description: "A guide to JavaScript for frontend development for beginners part 1",
-    date: "April 13, 2025",
-    tags: ["JavaScript", "Frontend"],
-    content: "An introductory guide to JavaScript fundamentals every frontend developer should know, including DOM manipulation, events, and modern ES6+ features.",
+    title: "Python asyncio for Network Programming",
+    slug: "python-asyncio-network-programming",
+    description:
+      "Using asyncio to build concurrent distributed systems.",
+    date: "May 15, 2024",
+    tags: ["Python", "Distributed Systems"],
+    content:
+      "An introduction to Python's asyncio for building concurrent network applications. Covers event loops, coroutines, and practical patterns used in building the ECHO distributed consensus protocol simulation.",
   },
   {
-    title: "Next JS Data Fetching mistakes & Security vulnerabilities",
-    slug: "next-js-data-fetching-mistakes-and-security-vulnerabilities-1",
-    description: "A guide to Next.js data fetching mistakes & security vulnerabilities",
-    date: "July 5, 2025",
-    tags: ["Next.js", "Security"],
-    content: "Common data fetching pitfalls in Next.js applications and how to avoid security vulnerabilities when handling server-side data.",
+    title: "RAG Pipelines: Connecting LLMs to Your Data",
+    slug: "rag-pipelines-connecting-llms-to-data",
+    description:
+      "Building retrieval-augmented generation pipelines with LangChain and FAISS.",
+    date: "March 25, 2024",
+    tags: ["AI", "Python", "LangChain"],
+    content:
+      "A practical guide to building RAG pipelines that connect large language models to custom data sources using LangChain, FAISS vector stores, and Hugging Face embeddings.",
   },
   {
-    title: "Routing in Next.js (App Router) - A Complete Guide (2025)",
-    slug: "routing-in-next-js-app-router-a-complete-guide-2025",
-    description: "A guide to routing in Next.js (App Router) covering Catch-All Segments, Dynamic Routes, Nested Routes, and more.",
-    date: "March 12, 2025",
-    tags: ["Next.js"],
-    content: "A comprehensive walkthrough of the Next.js App Router — dynamic routes, catch-all segments, route groups, parallel routes, and intercepting routes.",
+    title: "Next.js App Router: A Practical Guide",
+    slug: "nextjs-app-router-practical-guide",
+    description:
+      "Understanding the App Router, server components, and modern Next.js patterns.",
+    date: "February 10, 2024",
+    tags: ["Next.js", "TypeScript", "Frontend"],
+    content:
+      "A comprehensive walkthrough of the Next.js App Router covering server components, dynamic routes, route groups, parallel routes, and data fetching patterns for modern web applications.",
   },
 ];
 
@@ -227,23 +256,61 @@ export interface Book {
 }
 
 export const books: Book[] = [
-  { title: "The 48 Laws of Power", author: "Robert Greene", category: "Power & Influence" },
-  { title: "The Art of Seduction", author: "Robert Greene", category: "Power & Influence" },
-  { title: "The Laws of Human Nature", author: "Robert Greene", category: "Power & Influence" },
-  { title: "Surrounded by Idiots", author: "Thomas Erikson", category: "Power & Influence" },
-  { title: "Mastery", author: "Robert Greene", category: "Mastery & Focus" },
-  { title: "Deep Work", author: "Cal Newport", category: "Mastery & Focus" },
-  { title: "Limitless", author: "Jim Kwik", category: "Mastery & Focus" },
-  { title: "No Excuses", author: "Brian Tracy", category: "Discipline & Grit" },
-  { title: "Can't Hurt Me", author: "David Goggins", category: "Discipline & Grit" },
-  { title: "Unfuck Yourself", author: "Gary John Bishop", category: "Discipline & Grit" },
-  { title: "Man's Search for Meaning", author: "Viktor E. Frankl", category: "Meaning & Mind" },
-  { title: "The Power of Your Subconscious Mind", author: "Joseph Murphy", category: "Meaning & Mind" },
-  { title: "The 7 Habits of Highly Effective People", author: "Stephen R. Covey", category: "Habits & Systems" },
-  { title: "Dopamine Detox", author: "Thibaut Meurisse", category: "Attention & Dopamine" },
-  { title: "Digital Minimalism", author: "Cal Newport", category: "Attention & Dopamine" },
-  { title: "Steal Like an Artist", author: "Austin Kleon", category: "Creativity" },
-  { title: "This Explains Everything", author: "John Brockman", category: "Big Ideas" },
+  {
+    title: "Designing Data-Intensive Applications",
+    author: "Martin Kleppmann",
+    category: "Systems & Architecture",
+  },
+  {
+    title: "The Pragmatic Programmer",
+    author: "David Thomas & Andrew Hunt",
+    category: "Systems & Architecture",
+  },
+  {
+    title: "Clean Code",
+    author: "Robert C. Martin",
+    category: "Systems & Architecture",
+  },
+  {
+    title: "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow",
+    author: "Aurélien Géron",
+    category: "AI & Machine Learning",
+  },
+  {
+    title: "Deep Learning",
+    author: "Ian Goodfellow, Yoshua Bengio & Aaron Courville",
+    category: "AI & Machine Learning",
+  },
+  {
+    title: "Introduction to Algorithms",
+    author: "Cormen, Leiserson, Rivest & Stein",
+    category: "Computer Science",
+  },
+  {
+    title: "Cryptography and Network Security",
+    author: "William Stallings",
+    category: "Computer Science",
+  },
+  {
+    title: "Deep Work",
+    author: "Cal Newport",
+    category: "Productivity & Growth",
+  },
+  {
+    title: "Atomic Habits",
+    author: "James Clear",
+    category: "Productivity & Growth",
+  },
+  {
+    title: "Zero to One",
+    author: "Peter Thiel",
+    category: "Startups & Thinking",
+  },
+  {
+    title: "The Lean Startup",
+    author: "Eric Ries",
+    category: "Startups & Thinking",
+  },
 ];
 
 export interface Movie {
@@ -252,16 +319,16 @@ export interface Movie {
 }
 
 export const movies: Movie[] = [
-  { title: "Ford v Ferrari", year: 2019 },
-  { title: "Whiplash", year: 2014 },
   { title: "The Social Network", year: 2010 },
-  { title: "Rush", year: 2013 },
+  { title: "The Imitation Game", year: 2014 },
+  { title: "Ex Machina", year: 2014 },
+  { title: "Interstellar", year: 2014 },
+  { title: "The Matrix", year: 1999 },
+  { title: "Inception", year: 2010 },
+  { title: "Whiplash", year: 2014 },
   { title: "Steve Jobs", year: 2015 },
-  { title: "The Founder", year: 2016 },
   { title: "Silicon Valley", year: 2014 },
-  { title: "Black Swan", year: 2010 },
-  { title: "The Big Short", year: 2015 },
-  { title: "F1", year: 2025 },
+  { title: "Mr. Robot", year: 2015 },
 ];
 
 export interface GearItem {
@@ -271,34 +338,17 @@ export interface GearItem {
 }
 
 export const gears: GearItem[] = [
-  { name: 'Apple MacBook Pro 16"in M4 48GB 512GB', category: "Devices & Accessories" },
-  { name: "Samsung S23 (256 GB)", category: "Devices & Accessories" },
-  { name: "LG Ultragear Monitor 27GS65F (27 inch, 68.5 cm)", category: "Devices & Accessories" },
-  { name: "LG Curved Ultra Wide Monitor 34WR50QK (34 inch, 86.36 cm)", category: "Devices & Accessories" },
-  { name: "Monitor Stand with Laptop", category: "Devices & Accessories" },
-  { name: "Magic Keyboard", category: "Devices & Accessories" },
-  { name: "Logitech MX Master 3S Mouse", category: "Devices & Accessories" },
-  { name: "Mouse Pad", category: "Devices & Accessories" },
-  { name: "FIFINE K688 Podcast Microphone", category: "Devices & Accessories" },
-  { name: "Crossbeats Roar 2.0 (Special Addition)", category: "Devices & Accessories" },
-  { name: "Smart LED Light Strip (Tapo L900-5)", category: "Devices & Accessories" },
-  { name: "DIGITEK Lite (DCL-150WBC Combo) - keylight", category: "Devices & Accessories" },
-  { name: "Godox Softbox SB-GUE80", category: "Devices & Accessories" },
-  { name: "Boom Arm Holder for Light", category: "Devices & Accessories" },
-  { name: "Samsung T7 2TB SSD", category: "Devices & Accessories" },
-  { name: "Unhook", category: "Web Extensions", index: 1 },
-  { name: "uBlock Origin", category: "Web Extensions", index: 2 },
-  { name: "React Developer Tools", category: "Web Extensions", index: 3 },
+  { name: "VS Code / Cursor", category: "Software", index: 1 },
+  { name: "Docker Desktop", category: "Software", index: 2 },
+  { name: "Postman", category: "Software", index: 3 },
+  { name: "Git + GitHub", category: "Software", index: 4 },
+  { name: "Notion", category: "Software", index: 5 },
+  { name: "OBS Studio", category: "Software", index: 6 },
+  { name: "uBlock Origin", category: "Web Extensions", index: 1 },
+  { name: "React Developer Tools", category: "Web Extensions", index: 2 },
+  { name: "Wappalyzer", category: "Web Extensions", index: 3 },
   { name: "daily.dev", category: "Web Extensions", index: 4 },
-  { name: "Grammarly", category: "Web Extensions", index: 5 },
-  { name: "Wappalyzer", category: "Web Extensions", index: 6 },
-  { name: "ColorZilla", category: "Web Extensions", index: 7 },
-  { name: "Dia", category: "Software", index: 1 },
-  { name: "Notion", category: "Software", index: 2 },
-  { name: "TickTick", category: "Software", index: 3 },
-  { name: "OBS Studio", category: "Software", index: 4 },
-  { name: "VLC", category: "Software", index: 5 },
-  { name: "Ghostty", category: "Software", index: 6 },
+  { name: "ColorZilla", category: "Web Extensions", index: 5 },
 ];
 
 export const footerNav = [
@@ -306,11 +356,9 @@ export const footerNav = [
   { name: "Work", href: "/work" },
   { name: "Blog", href: "/blog" },
   { name: "Resume", href: "/resume" },
-  { name: "Projects", href: "/#projects" },
   { name: "Gears", href: "/gears" },
   { name: "Setup", href: "/setup" },
   { name: "Terminal", href: "/terminal" },
   { name: "Books", href: "/books" },
   { name: "Movies", href: "/movies" },
-  { name: "RSS FEED", href: "/rss.xml" },
 ];

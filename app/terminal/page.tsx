@@ -109,17 +109,17 @@ export default function TerminalPage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold">Source Repository</h2>
         <a
-          href="https://github.com/ramxcodes/term-conf"
+          href="https://github.com/rabbive"
           target="_blank"
           rel="noopener noreferrer"
           className="block rounded-xl border p-4 transition-colors hover:bg-[var(--bg-hover)]"
           style={{ borderColor: "var(--border)" }}
         >
           <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
-            ramxcodes/term-conf
+            rabbive on GitHub
           </p>
           <p className="mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
-            Full configuration files, documentation, and updates
+            Configuration files and other projects
           </p>
         </a>
       </section>
