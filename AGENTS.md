@@ -78,4 +78,4 @@ Playwright browsers are cached in `~/.cache/ms-playwright/` (~620 MB). If the ca
 
 ### Caveats
 - **Google Fonts**: Geist / Geist Mono are fetched via `next/font/google` at build/dev time, requiring internet access. If fonts fail to load, the site still renders with fallback system fonts.
-- **No `.env` required**: There are no environment variables needed to run the app.
+- **No `.env` required** for the default experience. Optional: set `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` for live “now playing” (see `ENV_SETUP.md`).

@@ -21,8 +21,11 @@ import {
   Share2,
   Github,
   Music2,
+  Volume2,
   LucideIcon,
 } from "lucide-react";
+import { playUiClick } from "@/lib/ui-sound";
+import { toggleUiSoundsStoredPreference } from "@/lib/ui-sound-settings";
 
 type CommandItem = {
   id: string;
@@ -33,12 +36,22 @@ type CommandItem = {
   run: () => void;
 };
 
+const UI_SOUNDS_STORAGE = "portfolio-ui-sounds";
+
 export function CommandPalette() {
   const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
+  const [uiSoundsStoredOff, setUiSoundsStoredOff] = useState(
+    () => typeof window !== "undefined" && window.localStorage.getItem(UI_SOUNDS_STORAGE) === "off",
+  );
+  const [reducedMotion, setReducedMotion] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const listboxId = "command-palette-listbox";
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +59,13 @@ export function CommandPalette() {
     setOpen(false);
     setQuery("");
     setSelected(0);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReducedMotion(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   const commands = useMemo<CommandItem[]>(() => {
@@ -56,10 +76,11 @@ export function CommandPalette() {
 
     const effectiveTheme = resolvedTheme ?? "light";
     const toggleTheme = () => {
+      playUiClick();
       setTheme(effectiveTheme === "dark" ? "light" : "dark");
     };
 
-    return [
+    const base: CommandItem[] = [
       { id: "home", title: "Go to Home", description: "Navigate to the homepage", shortcut: "H", icon: House, run: navigate("/") },
       { id: "work", title: "Go to Work", description: "View work experience", shortcut: "W", icon: BriefcaseBusiness, run: navigate("/work") },
       { id: "blog", title: "Go to Blog", description: "Browse all blog posts", shortcut: "B", icon: NotebookText, run: navigate("/blog") },
@@ -83,7 +104,10 @@ export function CommandPalette() {
         description: "Open the command palette",
         shortcut: "⌘K",
         icon: Command,
-        run: () => setOpen(true),
+        run: () => {
+          playUiClick();
+          setOpen(true);
+        },
       },
       {
         id: "top",
@@ -136,7 +160,24 @@ export function CommandPalette() {
         run: () => window.open("https://open.spotify.com/", "_blank", "noopener,noreferrer"),
       },
     ];
-  }, [router, setTheme, resolvedTheme, closePalette]);
+
+    const soundCmd: CommandItem = {
+      id: "ui-sounds",
+      title: uiSoundsStoredOff ? "Enable UI sounds" : "Disable UI sounds",
+      description: reducedMotion
+        ? "Stored preference only while reduced motion is on (sounds stay muted)"
+        : "Subtle click on theme toggle and opening the command palette",
+      shortcut: "⇧U",
+      icon: Volume2,
+      run: () => {
+        toggleUiSoundsStoredPreference();
+        setUiSoundsStoredOff(typeof window !== "undefined" && window.localStorage.getItem(UI_SOUNDS_STORAGE) === "off");
+        playUiClick();
+      },
+    };
+
+    return [...base, soundCmd];
+  }, [router, setTheme, resolvedTheme, closePalette, uiSoundsStoredOff, reducedMotion]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
@@ -167,6 +208,7 @@ export function CommandPalette() {
             setSelected(0);
             return false;
           }
+          queueMicrotask(() => playUiClick());
           return true;
         });
         return;
@@ -224,7 +266,10 @@ export function CommandPalette() {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          playUiClick();
+          setOpen(true);
+        }}
         className="motion-lift-colors flex items-center gap-1 rounded-[11px] border px-2 py-1 text-[11px] hover:bg-[var(--bg-hover)] hover:-translate-y-px"
         style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
         aria-label="Open command palette (⌘K)"

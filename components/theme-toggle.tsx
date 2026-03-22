@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { playUiClick } from "@/lib/ui-sound";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -10,7 +11,10 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => {
+        playUiClick();
+        setTheme(isDark ? "light" : "dark");
+      }}
       className="motion-lift-colors rounded-xl border p-2 hover:-translate-y-px active:translate-y-0"
       style={{ borderColor: "var(--border)" }}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}

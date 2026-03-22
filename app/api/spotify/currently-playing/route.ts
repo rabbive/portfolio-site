@@ -1,13 +1,26 @@
 import { NextResponse } from "next/server";
+import { fetchSpotifyPlaybackPayload } from "@/lib/spotify-server";
+
+const MEMORY_CACHE_MS = 12_000;
+let memoryCache: { payload: Awaited<ReturnType<typeof fetchSpotifyPlaybackPayload>>; until: number } | null =
+  null;
 
 export async function GET() {
-  return NextResponse.json({
-    isPlaying: false,
-    lastPlayed: {
-      title: "Maula Mere Maula",
-      artist: "Roop Kumar Rathod, Sayeed Quadri",
-      albumImageUrl: null,
-      songUrl: "#",
+  const now = Date.now();
+  if (memoryCache && memoryCache.until > now) {
+    return NextResponse.json(memoryCache.payload, {
+      headers: {
+        "Cache-Control": "private, max-age=10, stale-while-revalidate=20",
+      },
+    });
+  }
+
+  const payload = await fetchSpotifyPlaybackPayload();
+  memoryCache = { payload, until: now + MEMORY_CACHE_MS };
+
+  return NextResponse.json(payload, {
+    headers: {
+      "Cache-Control": "private, max-age=10, stale-while-revalidate=20",
     },
   });
 }

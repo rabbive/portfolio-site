@@ -11,23 +11,38 @@ type SpotifyPayload = {
     albumImageUrl: string | null;
     songUrl: string;
   };
+  source?: "spotify" | "fallback";
 };
+
+const POLL_MS = 12_000;
 
 export function HomeSpotifyLine() {
   const [data, setData] = useState<SpotifyPayload | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/spotify/currently-playing")
-      .then((r) => r.json())
-      .then((j: SpotifyPayload) => {
-        if (!cancelled) setData(j);
-      })
-      .catch(() => {
-        if (!cancelled) setData(null);
-      });
+
+    const pull = () => {
+      void fetch("/api/spotify/currently-playing")
+        .then((r) => r.json())
+        .then((j: SpotifyPayload) => {
+          if (!cancelled) setData(j);
+        })
+        .catch(() => {
+          if (!cancelled) setData(null);
+        });
+    };
+
+    pull();
+    const id = window.setInterval(pull, POLL_MS);
+    const onVis = () => {
+      if (document.visibilityState === "visible") pull();
+    };
+    document.addEventListener("visibilitychange", onVis);
     return () => {
       cancelled = true;
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
 
