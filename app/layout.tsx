@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/site-header";
@@ -19,6 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
+          <Script
+            src="https://cdn.jsdelivr.net/gh/adryd325/oneko@main/oneko.js"
+            strategy="afterInteractive"
+          />
           <div className="mx-auto min-h-screen max-w-[680px] px-6">
             <SiteHeader />
             <main className="motion-page-enter pb-16">{children}</main>

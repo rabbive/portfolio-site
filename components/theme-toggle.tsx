@@ -3,12 +3,13 @@
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
+      type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className="motion-lift-colors rounded-xl border p-2 hover:-translate-y-px active:translate-y-0"
       style={{ borderColor: "var(--border)" }}

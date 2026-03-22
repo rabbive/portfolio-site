@@ -1,3 +1,6 @@
+/** Static visitor ordinal for footer + `/api/visitors` stub (not a live counter). */
+export const VISITOR_COUNT_DISPLAY = 32874;
+
 export const siteConfig = {
   name: "Ashwanth Kumaravel",
   title: "Ashwanth Kumaravel - Portfolio",

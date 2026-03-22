@@ -5,6 +5,7 @@ import { ExperienceCard } from "@/components/experience-card";
 import { BlogCard } from "@/components/blog-card";
 import { SocialIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
+import { HomeSpotifyLine } from "@/components/home-spotify-line";
 
 export default function HomePage() {
   const previewPosts = blogPosts.slice(0, 3);
@@ -45,6 +46,8 @@ export default function HomePage() {
             </a>
           ))}
         </div>
+
+        <HomeSpotifyLine />
 
         <hr style={{ borderColor: "var(--border)" }} />
       </section>

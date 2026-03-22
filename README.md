@@ -5,7 +5,7 @@ A high-fidelity Next.js site focused on matching layout, typography, interaction
 ## Tech Stack
 
 - Next.js 16 (App Router) + React 19 + TypeScript
-- Tailwind CSS v4
+- Tailwind CSS v4 + `@tailwindcss/typography` (blog `prose`)
 - `next-themes` for dark/light mode
 - `lucide-react` + custom brand SVGs for icon parity
 
@@ -23,6 +23,11 @@ A high-fidelity Next.js site focused on matching layout, typography, interaction
 - `/terminal`
 - `/api/visitors` (stub)
 - `/api/spotify/currently-playing` (stub)
+
+## API stubs
+
+- `GET /api/visitors` returns `{ count }` from `VISITOR_COUNT_DISPLAY` in [`lib/site-data.ts`](lib/site-data.ts). The value is static for display parity; it is not a live visitor counter.
+- `GET /api/spotify/currently-playing` returns placeholder JSON used by the home Spotify line; it is not wired to Spotify Connect.
 
 ## Run Locally
 

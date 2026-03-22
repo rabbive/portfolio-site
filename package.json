@@ -18,6 +18,7 @@
     "parity:motion": "npm run parity:motion:capture:local:light && npm run parity:motion:compare:spec:light && npm run parity:motion:capture:local:dark && npm run parity:motion:compare:spec:dark"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "lucide-react": "^0.577.0",
     "next": "16.1.7",
     "next-themes": "^0.4.6",

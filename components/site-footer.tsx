@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig, footerNav } from "@/lib/site-data";
+import { siteConfig, footerNav, VISITOR_COUNT_DISPLAY } from "@/lib/site-data";
 import { SocialIcon } from "./icons";
 
 export function SiteFooter() {
@@ -62,7 +62,10 @@ export function SiteFooter() {
             &copy; 2026 {siteConfig.name}. All rights reserved.
           </p>
           <p className="text-xs sm:text-sm" style={{ color: "var(--text-muted)" }}>
-            You&apos;re the <strong style={{ color: "var(--text-primary)" }}>32,874</strong>
+            You&apos;re the{" "}
+            <strong style={{ color: "var(--text-primary)" }}>
+              {VISITOR_COUNT_DISPLAY.toLocaleString("en-US")}
+            </strong>
             <sup>th</sup> visitor
           </p>
         </div>

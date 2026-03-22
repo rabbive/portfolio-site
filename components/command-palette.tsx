@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { SearchIcon } from "./icons";
@@ -35,22 +35,28 @@ type CommandItem = {
 
 export function CommandPalette() {
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const listboxId = "command-palette-listbox";
+  const overlayRef = useRef<HTMLDivElement>(null);
 
-  const closePalette = () => {
+  const closePalette = useCallback(() => {
     setOpen(false);
     setQuery("");
     setSelected(0);
-  };
+  }, []);
 
   const commands = useMemo<CommandItem[]>(() => {
     const navigate = (href: string) => () => {
       router.push(href);
       closePalette();
+    };
+
+    const effectiveTheme = resolvedTheme ?? "light";
+    const toggleTheme = () => {
+      setTheme(effectiveTheme === "dark" ? "light" : "dark");
     };
 
     return [
@@ -69,7 +75,7 @@ export function CommandPalette() {
         description: "Switch between light and dark mode",
         shortcut: "T",
         icon: SunMoon,
-        run: () => setTheme(theme === "dark" ? "light" : "dark"),
+        run: toggleTheme,
       },
       {
         id: "palette",
@@ -130,7 +136,7 @@ export function CommandPalette() {
         run: () => window.open("https://open.spotify.com/", "_blank", "noopener,noreferrer"),
       },
     ];
-  }, [router, setTheme, theme]);
+  }, [router, setTheme, resolvedTheme, closePalette]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
@@ -138,36 +144,86 @@ export function CommandPalette() {
     return commands.filter((c) => `${c.title} ${c.description}`.toLowerCase().includes(q));
   }, [commands, query]);
 
+  const maxIdx = Math.max(0, filtered.length - 1);
+  const safeIdx = Math.min(selected, maxIdx);
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const isCmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k";
       if (isCmdK) {
         e.preventDefault();
-        setOpen((v) => !v);
+        setOpen((v) => {
+          if (v) {
+            setQuery("");
+            setSelected(0);
+            return false;
+          }
+          return true;
+        });
         return;
       }
       if (!open) return;
       if (e.key === "Escape") closePalette();
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setSelected((s) => Math.min(s + 1, Math.max(filtered.length - 1, 0)));
+        setSelected((s) => {
+          const cur = Math.min(s, Math.max(0, filtered.length - 1));
+          return Math.min(cur + 1, Math.max(0, filtered.length - 1));
+        });
       }
       if (e.key === "ArrowUp") {
         e.preventDefault();
-        setSelected((s) => Math.max(s - 1, 0));
+        setSelected((s) => {
+          const cur = Math.min(s, Math.max(0, filtered.length - 1));
+          return Math.max(cur - 1, 0);
+        });
       }
-      if (e.key === "Enter" && filtered[selected]) {
-        e.preventDefault();
-        filtered[selected].run();
+      if (e.key === "Enter") {
+        const idx = Math.min(selected, Math.max(0, filtered.length - 1));
+        if (filtered[idx]) {
+          e.preventDefault();
+          filtered[idx].run();
+        }
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [filtered, open, selected]);
+  }, [filtered, open, selected, closePalette]);
+
+  const handleOverlayKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !overlayRef.current) return;
+    const focusable = overlayRef.current.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+    );
+    const list = Array.from(focusable).filter((el) => el.offsetParent !== null);
+    if (list.length === 0) return;
+    const first = list[0];
+    const last = list[list.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey) {
+      if (active === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else if (active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         className="motion-lift-colors flex items-center gap-1 rounded-[11px] border px-2 py-1 text-[11px] hover:bg-[var(--bg-hover)] hover:-translate-y-px"
         style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
@@ -180,11 +236,16 @@ export function CommandPalette() {
 
       {open && (
         <div
+          ref={overlayRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command palette"
           className="fixed inset-0 z-[120] bg-black/30 px-4 pt-20"
           style={{
             animation: "fade-overlay var(--motion-duration-overlay-in) var(--motion-ease-enter)",
           }}
           onClick={closePalette}
+          onKeyDownCapture={handleOverlayKeyDown}
         >
           <div
             className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border bg-[var(--bg-card)] shadow-xl"
@@ -198,7 +259,10 @@ export function CommandPalette() {
             <input
               autoFocus
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setSelected(0);
+              }}
               placeholder="Type a command or search..."
               className="w-full appearance-none border-0 bg-transparent px-4 py-3 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 focus-visible:outline-none"
               style={{ color: "var(--text-primary)", boxShadow: "none", WebkitAppearance: "none" }}
@@ -211,14 +275,15 @@ export function CommandPalette() {
               {filtered.map((item, idx) => (
                 <button
                   key={item.id}
+                  type="button"
                   onMouseEnter={() => setSelected(idx)}
                   onClick={() => item.run()}
                   className="motion-colors flex w-full items-start justify-between rounded-lg px-3 py-2 text-left"
                   style={{
-                    backgroundColor: idx === selected ? "var(--bg-hover)" : "transparent",
+                    backgroundColor: idx === safeIdx ? "var(--bg-hover)" : "transparent",
                   }}
                   role="option"
-                  aria-selected={idx === selected}
+                  aria-selected={idx === safeIdx}
                 >
                   <span className="flex items-start gap-2.5">
                     <item.icon size={15} strokeWidth={1.75} style={{ color: "var(--text-secondary)", marginTop: 1 }} />

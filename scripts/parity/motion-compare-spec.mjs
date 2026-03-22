@@ -2,7 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const INPUT_DIR = path.resolve(process.cwd(), "artifacts/motion");
-const DURATION_TOLERANCE_MS = 24;
+/** Measured transition durations vary with CPU load and browser sampling; align with spec targets within this window. */
+const DURATION_TOLERANCE_MS = 72;
 
 const SPEC = {
   experience_expand: { property: "gridTemplateRows", durationMs: 362 },

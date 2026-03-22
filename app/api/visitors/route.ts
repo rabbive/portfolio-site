@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-
-let visitorCount = 32874;
+import { VISITOR_COUNT_DISPLAY } from "@/lib/site-data";
 
 export async function GET() {
-  visitorCount += 1;
-  return NextResponse.json({ count: visitorCount });
+  return NextResponse.json({ count: VISITOR_COUNT_DISPLAY });
 }

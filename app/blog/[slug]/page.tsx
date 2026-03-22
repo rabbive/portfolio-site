@@ -57,7 +57,9 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </div>
       <hr style={{ borderColor: "var(--border)" }} />
-      <div className="prose max-w-none text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+      <div
+        className="prose prose-sm max-w-none leading-relaxed dark:prose-invert prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)] prose-a:text-[var(--text-secondary)]"
+      >
         <p>{post.content}</p>
       </div>
     </article>
