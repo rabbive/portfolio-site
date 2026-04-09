@@ -112,7 +112,7 @@ export default function TerminalPage() {
           href="https://github.com/rabbive"
           target="_blank"
           rel="noopener noreferrer"
-          className="block rounded-xl border p-4 transition-colors hover:bg-[var(--bg-hover)]"
+          className="motion-lift-colors block rounded-xl border p-4 hover:-translate-y-px hover:bg-[var(--bg-hover)]"
           style={{ borderColor: "var(--border)" }}
         >
           <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>

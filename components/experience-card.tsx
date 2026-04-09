@@ -51,7 +51,7 @@ export function ExperienceCard({
             className="motion-colors mt-2 flex items-center gap-1 text-[11px] hover:underline"
             style={{ color: "var(--text-muted)" }}
             aria-expanded={expanded}
-            aria-label="Expand details"
+            aria-label={expanded ? "Hide details" : "Expand details"}
           >
             <span
               className="motion-lift"

@@ -42,6 +42,7 @@ export function CommandPalette() {
   const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const [uiSoundsStoredOff, setUiSoundsStoredOff] = useState(
@@ -56,10 +57,15 @@ export function CommandPalette() {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const closePalette = useCallback(() => {
-    setOpen(false);
-    setQuery("");
-    setSelected(0);
-  }, []);
+    const duration = reducedMotion ? 0 : 220;
+    setIsClosing(true);
+    setTimeout(() => {
+      setOpen(false);
+      setIsClosing(false);
+      setQuery("");
+      setSelected(0);
+    }, duration);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -202,18 +208,15 @@ export function CommandPalette() {
       const isCmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k";
       if (isCmdK) {
         e.preventDefault();
-        setOpen((v) => {
-          if (v) {
-            setQuery("");
-            setSelected(0);
-            return false;
-          }
+        if (open) {
+          closePalette();
+        } else if (!isClosing) {
           queueMicrotask(() => playUiClick());
-          return true;
-        });
+          setOpen(true);
+        }
         return;
       }
-      if (!open) return;
+      if (!open && !isClosing) return;
       if (e.key === "Escape") closePalette();
       if (e.key === "ArrowDown") {
         e.preventDefault();
@@ -239,7 +242,7 @@ export function CommandPalette() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [filtered, open, selected, closePalette]);
+  }, [filtered, open, isClosing, selected, closePalette]);
 
   const handleOverlayKeyDown = (e: React.KeyboardEvent) => {
     if (e.key !== "Tab" || !overlayRef.current) return;
@@ -279,15 +282,17 @@ export function CommandPalette() {
         <span className="hidden h-4 w-4 items-center justify-center rounded-[4px] border text-[10px] sm:flex" style={{ borderColor: "var(--border)" }}>K</span>
       </button>
 
-      {open && (
+      {(open || isClosing) && (
         <div
           ref={overlayRef}
           role="dialog"
           aria-modal="true"
           aria-label="Command palette"
-          className="fixed inset-0 z-[120] bg-black/30 px-4 pt-20"
+          className={`fixed inset-0 z-[120] bg-black/30 px-4 pt-20${isClosing ? " pointer-events-none" : ""}`}
           style={{
-            animation: "fade-overlay var(--motion-duration-overlay-in) var(--motion-ease-enter)",
+            animation: isClosing
+              ? "fade-overlay-out var(--motion-duration-overlay-out) var(--motion-ease-exit) forwards"
+              : "fade-overlay var(--motion-duration-overlay-in) var(--motion-ease-enter) forwards",
           }}
           onClick={closePalette}
           onKeyDownCapture={handleOverlayKeyDown}
@@ -296,8 +301,9 @@ export function CommandPalette() {
             className="mx-auto w-full max-w-xl overflow-hidden rounded-xl border bg-[var(--bg-card)] shadow-xl"
             style={{
               borderColor: "var(--border)",
-              animation:
-                "palette-enter var(--motion-duration-panel-in) var(--motion-ease-enter)",
+              animation: isClosing
+                ? "palette-exit var(--motion-duration-panel-out) var(--motion-ease-exit) forwards"
+                : "palette-enter var(--motion-duration-panel-in) var(--motion-ease-enter) forwards",
             }}
             onClick={(e) => e.stopPropagation()}
           >
