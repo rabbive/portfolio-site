@@ -6,6 +6,7 @@ import { BlogCard } from "@/components/blog-card";
 import { SocialIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
 import { HomeSpotifyLine } from "@/components/home-spotify-line";
+import { GitHubHeatmap } from "@/components/github-heatmap";
 
 export default function HomePage() {
   const previewPosts = blogPosts.slice(0, 3);
@@ -136,6 +137,12 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* GitHub */}
+      <section className="space-y-5">
+        <h2 className="text-xl font-bold">GitHub</h2>
+        <GitHubHeatmap />
       </section>
 
       {/* Blog */}
