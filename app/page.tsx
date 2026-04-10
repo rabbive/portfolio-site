@@ -3,7 +3,7 @@ import Image from "next/image";
 import { siteConfig, experiences, blogPosts, projects } from "@/lib/site-data";
 import { ExperienceCard } from "@/components/experience-card";
 import { BlogCard } from "@/components/blog-card";
-import { SocialIcon } from "@/components/icons";
+import { SocialIcon, GithubIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
 import { HomeSpotifyLine } from "@/components/home-spotify-line";
 import { GitHubHeatmap } from "@/components/github-heatmap";
@@ -107,11 +107,11 @@ export default function HomePage() {
           {projects.map((project) => (
             <div
               key={project.slug}
-              className="rounded-xl border p-4 space-y-2"
+              className="motion-lift-colors rounded-xl border p-4 space-y-2 hover:-translate-y-px hover:bg-[var(--bg-hover)]"
               style={{ borderColor: "var(--border)" }}
             >
-              <div className="flex items-start justify-between">
-                <div>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
                   <h3 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
                     {project.title}
                   </h3>
@@ -119,9 +119,23 @@ export default function HomePage() {
                     {project.description}
                   </p>
                 </div>
-                <span className="shrink-0 text-xs" style={{ color: "var(--text-muted)" }}>
-                  {project.year}
-                </span>
+                <div className="flex shrink-0 items-center gap-2">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="motion-colors hover:opacity-70"
+                      style={{ color: "var(--text-muted)" }}
+                      aria-label={`${project.title} on GitHub`}
+                    >
+                      <GithubIcon size={14} />
+                    </a>
+                  )}
+                  <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+                    {project.year}
+                  </span>
+                </div>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {project.technologies.map((tech) => (

@@ -16,7 +16,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full" style={{ backgroundColor: "var(--bg)" }}>
+    <header className="sticky top-0 z-50 w-full border-b" style={{ backgroundColor: "var(--bg)", borderColor: "var(--border)" }}>
       <div className="mx-auto flex h-14 max-w-[680px] items-center justify-between px-6">
         <nav className="flex items-center gap-5">
           {navLinks.map((link) => {

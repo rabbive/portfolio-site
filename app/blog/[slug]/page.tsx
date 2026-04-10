@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { blogPosts } from "@/lib/site-data";
+import { blogPosts, siteConfig } from "@/lib/site-data";
 import { CalendarIcon } from "@/components/icons";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -14,7 +14,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return {};
-  return { title: post.title, description: post.description };
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.description,
+      url: `${siteConfig.siteUrl}/blog/${post.slug}`,
+      publishedTime: new Date(post.date).toISOString(),
+      authors: [siteConfig.name],
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.description,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -27,7 +43,7 @@ export default async function BlogPostPage({ params }: Props) {
       <div>
         <Link
           href="/blog"
-          className="motion-colors text-sm hover:underline"
+          className="motion-lift-colors text-sm hover:underline hover:-translate-y-px"
           style={{ color: "var(--text-muted)" }}
         >
           ← Back to blog
@@ -58,7 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
       <hr style={{ borderColor: "var(--border)" }} />
       <div
-        className="prose prose-sm max-w-none leading-relaxed dark:prose-invert prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)] prose-a:text-[var(--text-secondary)]"
+        className="prose prose-sm max-w-none leading-relaxed dark:prose-invert prose-p:text-[var(--text-secondary)] prose-headings:text-[var(--text-primary)] prose-strong:text-[var(--text-primary)] prose-a:text-[var(--text-secondary)] prose-a:underline prose-a:decoration-[var(--border)] hover:prose-a:opacity-80"
       >
         <p>{post.content}</p>
       </div>

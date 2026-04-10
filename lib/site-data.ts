@@ -6,6 +6,7 @@ export const siteConfig = {
   title: "Ashwanth Kumaravel - Portfolio",
   description:
     "CS student at VIT Chennai building with ML, distributed systems, and applied cryptography.",
+  siteUrl: "https://ashwanthkumaravel.vercel.app",
   tagline: "CS Student · Builder",
   email: "ashwanthkumaravel@gmail.com",
   avatar: "/assets/ram.webp",
