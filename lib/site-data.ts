@@ -1,14 +1,39 @@
+import githubGenerated from "./github-data.generated.json";
+
 /** Static visitor ordinal for footer + `/api/visitors` stub (not a live counter). */
 export const VISITOR_COUNT_DISPLAY = 32874;
 
+type GithubGeneratedProject = {
+  title: string;
+  slug: string;
+  description: string;
+  year: string;
+  technologies: string[];
+  highlights: string[];
+  github?: string;
+};
+
+type GithubGeneratedShape = {
+  profile?: {
+    name?: string;
+    bio?: string;
+    avatarUrl?: string;
+    githubUrl?: string;
+  };
+  projects?: GithubGeneratedProject[];
+};
+
+const githubData = githubGenerated as GithubGeneratedShape;
+
 export const siteConfig = {
-  name: "Ashwanth Kumaravel",
+  name: githubData.profile?.name || "Ashwanth Kumaravel",
   title: "Ashwanth Kumaravel - Portfolio",
   description:
+    githubData.profile?.bio ||
     "CS student at VIT Chennai building with ML, distributed systems, and applied cryptography.",
   tagline: "CS Student · Builder",
   email: "ashwanthkumaravel@gmail.com",
-  avatar: "/assets/ram.webp",
+  avatar: githubData.profile?.avatarUrl || "/assets/ram.webp",
   socials: [
     {
       name: "LinkedIn",
@@ -17,7 +42,7 @@ export const siteConfig = {
     },
     {
       name: "Github",
-      url: "https://github.com/rabbive",
+      url: githubData.profile?.githubUrl || "https://github.com/rabbive",
       icon: "github",
     },
     {
@@ -78,7 +103,7 @@ export interface Project {
   github?: string;
 }
 
-export const projects: Project[] = [
+const fallbackProjects: Project[] = [
   {
     title: "Schrödinger Mail",
     slug: "schrodinger-mail",
@@ -150,171 +175,18 @@ export const projects: Project[] = [
   },
 ];
 
-export interface BlogPost {
-  title: string;
-  slug: string;
-  description: string;
-  date: string;
-  tags: string[];
-  content: string;
-}
-
-export const blogPosts: BlogPost[] = [
-  {
-    title: "Post-Quantum Cryptography: Building a Secure Email Client",
-    slug: "post-quantum-cryptography-secure-email",
-    description:
-      "How I built Schrödinger Mail with CRYSTALS-Kyber and Dilithium for post-quantum security.",
-    date: "March 10, 2025",
-    tags: ["Cryptography", "Python", "Security"],
-    content:
-      "A deep dive into building a post-quantum secure email client using NIST-standardised algorithms. This post covers the KEM-DEM pipeline, hybrid encryption modes, and how CRYSTALS-Kyber768 and Dilithium3 work together to provide defence-in-depth at NIST Security Level 3.",
-  },
-  {
-    title: "Distributed Consensus for IoT: Beyond Raft and PBFT",
-    slug: "distributed-consensus-iot-beyond-raft-pbft",
-    description:
-      "Designing a consensus protocol for heterogeneous IoT edge networks.",
-    date: "January 15, 2025",
-    tags: ["Distributed Systems", "Python", "IoT"],
-    content:
-      "Traditional consensus protocols like Raft and PBFT weren't designed for constrained IoT devices. This post explores the design decisions behind ECHO, a novel protocol targeting low-resource edge nodes with tunable consistency guarantees.",
-  },
-  {
-    title: "Building an AI Learning Platform with SvelteKit",
-    slug: "ai-learning-platform-sveltekit",
-    description:
-      "Architecture and lessons from building CogniZap with real-time AI content generation.",
-    date: "November 20, 2024",
-    tags: ["AI", "SvelteKit", "TypeScript"],
-    content:
-      "How I built CogniZap — an AI-powered learning platform that auto-generates flashcards and quizzes from trending topics using the Perplexity Sonar API. Covers the modular SvelteKit architecture, server-side API routes, and zero-config demo mode.",
-  },
-  {
-    title: "Porting a Chrome Extension to Firefox",
-    slug: "porting-chrome-extension-to-firefox",
-    description:
-      "Lessons from migrating ViBoot-Enhanced to the WebExtensions API.",
-    date: "September 5, 2024",
-    tags: ["JavaScript", "Browser Extensions"],
-    content:
-      "A practical guide to porting Chrome extensions to Firefox, covering Manifest v3 compatibility issues, WebExtensions API differences, and cross-browser testing strategies learned while working on ViBoot-Enhanced.",
-  },
-  {
-    title: "Getting Started with ML Pipelines in Python",
-    slug: "getting-started-ml-pipelines-python",
-    description:
-      "From EDA to model evaluation — a practical walkthrough.",
-    date: "August 20, 2024",
-    tags: ["Machine Learning", "Python"],
-    content:
-      "A beginner-friendly walkthrough of the full machine learning pipeline: exploratory data analysis, feature engineering, model selection, and validation using scikit-learn and pandas.",
-  },
-  {
-    title: "Docker and Kubernetes for Side Projects",
-    slug: "docker-kubernetes-side-projects",
-    description:
-      "Containerising and orchestrating your projects the practical way.",
-    date: "July 10, 2024",
-    tags: ["Docker", "Kubernetes", "DevOps"],
-    content:
-      "How to containerise full-stack applications with Docker Compose and deploy with Kubernetes manifests. Practical tips from deploying Schrödinger Mail including Argon2id hashing, CSRF protection, and rate limiting.",
-  },
-  {
-    title: "Python asyncio for Network Programming",
-    slug: "python-asyncio-network-programming",
-    description:
-      "Using asyncio to build concurrent distributed systems.",
-    date: "May 15, 2024",
-    tags: ["Python", "Distributed Systems"],
-    content:
-      "An introduction to Python's asyncio for building concurrent network applications. Covers event loops, coroutines, and practical patterns used in building the ECHO distributed consensus protocol simulation.",
-  },
-  {
-    title: "RAG Pipelines: Connecting LLMs to Your Data",
-    slug: "rag-pipelines-connecting-llms-to-data",
-    description:
-      "Building retrieval-augmented generation pipelines with LangChain and FAISS.",
-    date: "March 25, 2024",
-    tags: ["AI", "Python", "LangChain"],
-    content:
-      "A practical guide to building RAG pipelines that connect large language models to custom data sources using LangChain, FAISS vector stores, and Hugging Face embeddings.",
-  },
-  {
-    title: "Next.js App Router: A Practical Guide",
-    slug: "nextjs-app-router-practical-guide",
-    description:
-      "Understanding the App Router, server components, and modern Next.js patterns.",
-    date: "February 10, 2024",
-    tags: ["Next.js", "TypeScript", "Frontend"],
-    content:
-      "A comprehensive walkthrough of the Next.js App Router covering server components, dynamic routes, route groups, parallel routes, and data fetching patterns for modern web applications.",
-  },
-];
-
-export interface Book {
-  title: string;
-  author: string;
-  category: string;
-}
-
-export const books: Book[] = [
-  {
-    title: "Designing Data-Intensive Applications",
-    author: "Martin Kleppmann",
-    category: "Systems & Architecture",
-  },
-  {
-    title: "The Pragmatic Programmer",
-    author: "David Thomas & Andrew Hunt",
-    category: "Systems & Architecture",
-  },
-  {
-    title: "Clean Code",
-    author: "Robert C. Martin",
-    category: "Systems & Architecture",
-  },
-  {
-    title: "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow",
-    author: "Aurélien Géron",
-    category: "AI & Machine Learning",
-  },
-  {
-    title: "Deep Learning",
-    author: "Ian Goodfellow, Yoshua Bengio & Aaron Courville",
-    category: "AI & Machine Learning",
-  },
-  {
-    title: "Introduction to Algorithms",
-    author: "Cormen, Leiserson, Rivest & Stein",
-    category: "Computer Science",
-  },
-  {
-    title: "Cryptography and Network Security",
-    author: "William Stallings",
-    category: "Computer Science",
-  },
-  {
-    title: "Deep Work",
-    author: "Cal Newport",
-    category: "Productivity & Growth",
-  },
-  {
-    title: "Atomic Habits",
-    author: "James Clear",
-    category: "Productivity & Growth",
-  },
-  {
-    title: "Zero to One",
-    author: "Peter Thiel",
-    category: "Startups & Thinking",
-  },
-  {
-    title: "The Lean Startup",
-    author: "Eric Ries",
-    category: "Startups & Thinking",
-  },
-];
+export const projects: Project[] =
+  githubData.projects && githubData.projects.length > 0
+    ? githubData.projects.map((project) => ({
+        title: project.title,
+        slug: project.slug,
+        description: project.description,
+        year: project.year,
+        technologies: project.technologies,
+        highlights: project.highlights,
+        github: project.github,
+      }))
+    : fallbackProjects;
 
 export interface Movie {
   title: string;
@@ -357,11 +229,8 @@ export const gears: GearItem[] = [
 export const footerNav = [
   { name: "Home", href: "/" },
   { name: "Work", href: "/work" },
-  { name: "Blog", href: "/blog" },
   { name: "Resume", href: "/resume" },
-  { name: "Gears", href: "/gears" },
   { name: "Setup", href: "/setup" },
   { name: "Terminal", href: "/terminal" },
-  { name: "Books", href: "/books" },
   { name: "Movies", href: "/movies" },
 ];

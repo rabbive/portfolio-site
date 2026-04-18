@@ -7,10 +7,7 @@ import { SearchIcon } from "./icons";
 import {
   House,
   BriefcaseBusiness,
-  NotebookText,
   FileText,
-  Cpu,
-  BookOpen,
   Clapperboard,
   Wrench,
   TerminalSquare,
@@ -83,10 +80,7 @@ export function CommandPalette() {
     const base: CommandItem[] = [
       { id: "home", title: "Go to Home", description: "Navigate to the homepage", shortcut: "H", icon: House, run: navigate("/") },
       { id: "work", title: "Go to Work", description: "View work experience", shortcut: "W", icon: BriefcaseBusiness, run: navigate("/work") },
-      { id: "blog", title: "Go to Blog", description: "Browse all blog posts", shortcut: "B", icon: NotebookText, run: navigate("/blog") },
       { id: "resume", title: "Go to Resume", description: "View and download resume", shortcut: "R", icon: FileText, run: navigate("/resume") },
-      { id: "gears", title: "Go to Gears", description: "View hardware and equipment setup", shortcut: "G", icon: Cpu, run: navigate("/gears") },
-      { id: "books", title: "Go to Books", description: "View recommended books and reading list", shortcut: "K", icon: BookOpen, run: navigate("/books") },
       { id: "movies", title: "Go to Movies", description: "View favorite movies and shows", shortcut: "M", icon: Clapperboard, run: navigate("/movies") },
       { id: "setup", title: "Go to Setup", description: "View development setup and tools", shortcut: "S", icon: Wrench, run: navigate("/setup") },
       { id: "terminal", title: "Go to Terminal", description: "Terminal setup guide", icon: TerminalSquare, run: navigate("/terminal") },

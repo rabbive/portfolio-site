@@ -1,15 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { siteConfig, experiences, blogPosts, projects } from "@/lib/site-data";
+import { siteConfig, experiences, projects } from "@/lib/site-data";
 import { ExperienceCard } from "@/components/experience-card";
-import { BlogCard } from "@/components/blog-card";
 import { SocialIcon } from "@/components/icons";
 import { CopyEmailButton } from "@/components/copy-email";
 import { HomeSpotifyLine } from "@/components/home-spotify-line";
 
 export default function HomePage() {
-  const previewPosts = blogPosts.slice(0, 3);
-
   return (
     <div className="space-y-16 pt-8">
       {/* Hero */}
@@ -138,31 +135,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Blog */}
-      <section className="space-y-5">
-        <h2 className="text-xl font-bold">Blog</h2>
-        <div className="space-y-6">
-          {previewPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
-        <div className="flex justify-center">
-          <Link
-            href="/blog"
-              className="motion-lift-colors rounded-lg border px-4 py-2 text-sm font-medium hover:-translate-y-px hover:bg-[var(--bg-hover)]"
-            style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
-          >
-            Show all blogs
-          </Link>
-        </div>
-      </section>
-
       {/* Development */}
       <section className="space-y-5">
         <h2 className="text-xl font-bold">Development</h2>
         <div className="space-y-3">
           {[
-            { title: "Gears", desc: "Tools, devices, and software I use to get work done.", href: "/gears" },
             { title: "Setup", desc: "VSCode / Cursor configuration and extensions guide.", href: "/setup" },
             { title: "Terminal", desc: "Zsh, Starship, Fastfetch, and shell configuration.", href: "/terminal" },
           ].map((item) => (
@@ -188,7 +165,6 @@ export default function HomePage() {
         <h2 className="text-xl font-bold">Personal</h2>
         <div className="space-y-3">
           {[
-            { title: "Books", desc: "Books that have influenced my thinking and growth.", href: "/books" },
             { title: "Movies", desc: "Films and shows that have inspired and entertained me.", href: "/movies" },
           ].map((item) => (
             <Link

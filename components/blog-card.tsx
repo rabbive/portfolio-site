@@ -1,8 +1,15 @@
 import Link from "next/link";
-import type { BlogPost } from "@/lib/site-data";
 import { CalendarIcon } from "./icons";
 
-export function BlogCard({ post, showTags = false }: { post: BlogPost; showTags?: boolean }) {
+type BlogCardPost = {
+  title: string;
+  slug: string;
+  description: string;
+  date: string;
+  tags: string[];
+};
+
+export function BlogCard({ post, showTags = false }: { post: BlogCardPost; showTags?: boolean }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
