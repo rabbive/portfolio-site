@@ -55,6 +55,16 @@ npm run build
 
 Both commands should pass before pushing changes.
 
+## Refresh GitHub-backed content
+
+```bash
+npm run sync:github
+npm run lint
+npm run build
+```
+
+Commit `lib/github-data.generated.json` when it changes.
+
 ## Project Structure
 
 ```text
