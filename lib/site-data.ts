@@ -175,18 +175,7 @@ const fallbackProjects: Project[] = [
   },
 ];
 
-export const projects: Project[] =
-  githubData.projects && githubData.projects.length > 0
-    ? githubData.projects.map((project) => ({
-        title: project.title,
-        slug: project.slug,
-        description: project.description,
-        year: project.year,
-        technologies: project.technologies,
-        highlights: project.highlights,
-        github: project.github,
-      }))
-    : fallbackProjects;
+export const projects: Project[] = fallbackProjects;
 
 export interface Movie {
   title: string;
@@ -204,26 +193,6 @@ export const movies: Movie[] = [
   { title: "Steve Jobs", year: 2015 },
   { title: "Silicon Valley", year: 2014 },
   { title: "Mr. Robot", year: 2015 },
-];
-
-export interface GearItem {
-  name: string;
-  category: string;
-  index?: number;
-}
-
-export const gears: GearItem[] = [
-  { name: "VS Code / Cursor", category: "Software", index: 1 },
-  { name: "Docker Desktop", category: "Software", index: 2 },
-  { name: "Postman", category: "Software", index: 3 },
-  { name: "Git + GitHub", category: "Software", index: 4 },
-  { name: "Notion", category: "Software", index: 5 },
-  { name: "OBS Studio", category: "Software", index: 6 },
-  { name: "uBlock Origin", category: "Web Extensions", index: 1 },
-  { name: "React Developer Tools", category: "Web Extensions", index: 2 },
-  { name: "Wappalyzer", category: "Web Extensions", index: 3 },
-  { name: "daily.dev", category: "Web Extensions", index: 4 },
-  { name: "ColorZilla", category: "Web Extensions", index: 5 },
 ];
 
 export const footerNav = [

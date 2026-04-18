@@ -15,12 +15,24 @@ export async function GET() {
     });
   }
 
-  const payload = await fetchSpotifyPlaybackPayload();
-  memoryCache = { payload, until: now + MEMORY_CACHE_MS };
+  try {
+    const payload = await fetchSpotifyPlaybackPayload();
+    memoryCache = { payload, until: now + MEMORY_CACHE_MS };
 
-  return NextResponse.json(payload, {
-    headers: {
-      "Cache-Control": "private, max-age=10, stale-while-revalidate=20",
-    },
-  });
+    return NextResponse.json(payload, {
+      headers: {
+        "Cache-Control": "private, max-age=10, stale-while-revalidate=20",
+      },
+    });
+  } catch (error) {
+    console.error("Spotify API error:", error);
+    return NextResponse.json(
+      { isPlaying: false, lastPlayed: null, source: "spotify" },
+      {
+        headers: {
+          "Cache-Control": "private, max-age=10, stale-while-revalidate=20",
+        },
+      }
+    );
+  }
 }

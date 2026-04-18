@@ -51,25 +51,35 @@ async function refreshAccessToken(): Promise<string | null> {
     client_secret: clientSecret,
   });
 
-  const res = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: body.toString(),
-    cache: "no-store",
-  });
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
 
-  if (!res.ok) {
+    if (!res.ok) {
+      accessTokenCache = null;
+      return null;
+    }
+
+    const data = (await res.json()) as SpotifyTokenResponse;
+    const expiresIn = typeof data.expires_in === "number" ? data.expires_in : 3600;
+    accessTokenCache = {
+      token: data.access_token,
+      expiresAtMs: now + expiresIn * 1000,
+    };
+    return accessTokenCache.token;
+  } catch (error) {
+    console.error("Spotify token refresh error:", error);
     accessTokenCache = null;
     return null;
   }
-
-  const data = (await res.json()) as SpotifyTokenResponse;
-  const expiresIn = typeof data.expires_in === "number" ? data.expires_in : 3600;
-  accessTokenCache = {
-    token: data.access_token,
-    expiresAtMs: now + expiresIn * 1000,
-  };
-  return accessTokenCache.token;
 }
 
 function mapTrack(track: SpotifyTrack, isPlaying: boolean): SpotifyApiPayload {
@@ -100,35 +110,50 @@ export async function fetchSpotifyPlaybackPayload(): Promise<SpotifyApiPayload> 
 
   const headers = { Authorization: `Bearer ${token}` };
 
-  const currentRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
-    headers,
-    cache: "no-store",
-  });
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
 
-  if (currentRes.status === 204) {
-    const recentRes = await fetch("https://api.spotify.com/v1/me/player/recently-played?limit=1", {
+    const currentRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       headers,
       cache: "no-store",
+      signal: controller.signal,
     });
-    if (!recentRes.ok) {
-      return { ...SPOTIFY_FALLBACK_RESPONSE, isPlaying: false };
-    }
-    const recent = (await recentRes.json()) as SpotifyRecentlyPlayed;
-    const track = recent.items?.[0]?.track;
-    if (!track) {
-      return { ...SPOTIFY_FALLBACK_RESPONSE, isPlaying: false };
-    }
-    return mapTrack(track, false);
-  }
+    clearTimeout(timeout);
 
-  if (!currentRes.ok) {
+    if (currentRes.status === 204) {
+      const recentController = new AbortController();
+      const recentTimeout = setTimeout(() => recentController.abort(), 10000);
+      const recentRes = await fetch("https://api.spotify.com/v1/me/player/recently-played?limit=1", {
+        headers,
+        cache: "no-store",
+        signal: recentController.signal,
+      });
+      clearTimeout(recentTimeout);
+
+      if (!recentRes.ok) {
+        return { ...SPOTIFY_FALLBACK_RESPONSE, isPlaying: false };
+      }
+      const recent = (await recentRes.json()) as SpotifyRecentlyPlayed;
+      const track = recent.items?.[0]?.track;
+      if (!track) {
+        return { ...SPOTIFY_FALLBACK_RESPONSE, isPlaying: false };
+      }
+      return mapTrack(track, false);
+    }
+
+    if (!currentRes.ok) {
+      return SPOTIFY_FALLBACK_RESPONSE;
+    }
+
+    const body = (await currentRes.json()) as SpotifyCurrentlyPlaying;
+    const item = body.item;
+    if (!item) {
+      return SPOTIFY_FALLBACK_RESPONSE;
+    }
+    return mapTrack(item, Boolean(body.is_playing));
+  } catch (error) {
+    console.error("Spotify playback fetch error:", error);
     return SPOTIFY_FALLBACK_RESPONSE;
   }
-
-  const body = (await currentRes.json()) as SpotifyCurrentlyPlaying;
-  const item = body.item;
-  if (!item) {
-    return SPOTIFY_FALLBACK_RESPONSE;
-  }
-  return mapTrack(item, Boolean(body.is_playing));
 }

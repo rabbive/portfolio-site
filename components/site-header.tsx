@@ -8,7 +8,6 @@ import { CommandPalette } from "./command-palette";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Work", href: "/work" },
-  { name: "Blog", href: "/blog" },
   { name: "Resume", href: "/resume" },
 ];
 
