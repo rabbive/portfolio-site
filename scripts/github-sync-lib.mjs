@@ -6,6 +6,14 @@ function safeYear(isoString) {
   return String(d.getUTCFullYear());
 }
 
+function safeDate(isoString) {
+  const d = new Date(isoString);
+  if (Number.isNaN(d.getTime())) {
+    return new Date().toISOString().slice(0, 10);
+  }
+  return d.toISOString().slice(0, 10);
+}
+
 function slugify(input) {
   return input
     .toLowerCase()
@@ -27,7 +35,7 @@ function mapRepoToProject(repo) {
     highlights: [
       `GitHub stars: ${repo.stargazers_count ?? 0}`,
       `Forks: ${repo.forks_count ?? 0}`,
-      `Last updated: ${safeYear(repo.updated_at)}`,
+      `Last updated: ${safeDate(repo.updated_at)}`,
     ],
     github: repo.html_url,
   };

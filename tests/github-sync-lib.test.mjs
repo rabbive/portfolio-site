@@ -86,3 +86,37 @@ test("limits project count", () => {
   assert.equal(snapshot.projects.length, 6);
   assert.equal(snapshot.profile.name, "rabbive");
 });
+
+test("uses fallback description and includes full updated date in highlights", () => {
+  const snapshot = mapGithubSnapshot({
+    profile: {
+      login: "rabbive",
+      name: "Ash",
+      bio: "bio",
+      avatar_url: "https://avatars.githubusercontent.com/u/1?v=4",
+      html_url: "https://github.com/rabbive",
+    },
+    repos: [
+      {
+        name: "repo-no-desc",
+        fork: false,
+        pushed_at: "2026-04-01T00:00:00Z",
+        updated_at: "2026-04-01T00:00:00Z",
+        description: "",
+        html_url: "https://github.com/rabbive/repo-no-desc",
+        language: "TypeScript",
+        stargazers_count: 3,
+        forks_count: 4,
+        topics: [],
+      },
+    ],
+    repoLimit: 6,
+  });
+
+  assert.equal(snapshot.projects[0].description, "Project details available on GitHub.");
+  assert.deepEqual(snapshot.projects[0].highlights.slice(0, 3), [
+    "GitHub stars: 3",
+    "Forks: 4",
+    "Last updated: 2026-04-01",
+  ]);
+});

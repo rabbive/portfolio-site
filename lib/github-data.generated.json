@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-04-18T14:41:14.150Z",
+  "profile": {
+    "login": "rabbive",
+    "name": "Ashwanth Kumaravel",
+    "bio": "CS student at VIT Chennai building with ML, distributed systems, and applied cryptography.",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/63780991?v=4",
+    "githubUrl": "https://github.com/rabbive"
+  },
+  "projects": [
+    {
+      "title": "hybrid-movie-recommender",
+      "slug": "hybrid-movie-recommender",
+      "description": "Hybrid movie recommender (synced from nando-g/Hybrid-Movie-Recommender)",
+      "year": "2026",
+      "technologies": [
+        "TypeScript"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2026-04-17"
+      ],
+      "github": "https://github.com/rabbive/hybrid-movie-recommender"
+    },
+    {
+      "title": "echod",
+      "slug": "echod",
+      "description": "A lightweight distributed consensus protocol for heterogeneous IoT edge networks — energy-aware, partition-tolerant, and Raft-inspired.",
+      "year": "2026",
+      "technologies": [
+        "Python"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2026-04-15"
+      ],
+      "github": "https://github.com/rabbive/echod"
+    },
+    {
+      "title": "portfolio-site",
+      "slug": "portfolio-site",
+      "description": "Project details available on GitHub.",
+      "year": "2026",
+      "technologies": [
+        "TypeScript"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2026-03-22"
+      ],
+      "github": "https://github.com/rabbive/portfolio-site"
+    },
+    {
+      "title": "schrodinger-mail",
+      "slug": "schrodinger-mail",
+      "description": "  A full-featured, quantum-secure email client that uses post-quantum cryptography to provide confidentiality, integrity, and authenticity against both classical and quantum computing threats. Built with a Signed KEM-DEM architecture using NIST-standardized algorithms.",
+      "year": "2026",
+      "technologies": [
+        "Python",
+        "dilithium",
+        "email-client",
+        "flask"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2026-04-09"
+      ],
+      "github": "https://github.com/rabbive/schrodinger-mail"
+    },
+    {
+      "title": "ops-env",
+      "slug": "ops-env",
+      "description": "OpenEnv support-desk triage environment (FastAPI + deterministic graders)",
+      "year": "2026",
+      "technologies": [
+        "Python",
+        "agents",
+        "evaluation",
+        "fastapi"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2026-04-08"
+      ],
+      "github": "https://github.com/rabbive/ops-env"
+    },
+    {
+      "title": "university-fit-hub",
+      "slug": "university-fit-hub",
+      "description": "Project details available on GitHub.",
+      "year": "2025",
+      "technologies": [
+        "TypeScript"
+      ],
+      "highlights": [
+        "GitHub stars: 0",
+        "Forks: 0",
+        "Last updated: 2025-12-18"
+      ],
+      "github": "https://github.com/rabbive/university-fit-hub"
+    }
+  ]
+}
